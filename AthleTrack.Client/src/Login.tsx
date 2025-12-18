@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { API_BASE_URL, type LoginDto, type AuthResponse }  from './api';
+import { API_BASE_URL, type LoginDto, type AuthResponse } from './api';
 
-// Przyjmuje prop 'onAuthSuccess' do przekierowania po zalogowaniu
 interface LoginProps {
     onAuthSuccess: (token: string) => void;
     onNavigateRegister: () => void;
@@ -27,15 +26,16 @@ const LoginScreen: React.FC<LoginProps> = ({ onAuthSuccess, onNavigateRegister }
                 body: JSON.stringify(loginData),
             });
 
+            // Sprawdzamy czy odpowiedź ma treść przed próba parsowania JSON
             const data: AuthResponse = await response.json();
 
             if (response.ok) {
                 onAuthSuccess(data.token);
             } else {
-                setError(`Logowanie nieudane}`);
+                setError('Nieprawidłowy email lub hasło.');
             }
         } catch (err) {
-            setError('Błąd sieci/CORS. Upewnij się, że API działa na porcie 5079.');
+            setError('Błąd połączenia z serwerem. Upewnij się, że API działa.');
         } finally {
             setLoading(false);
         }
@@ -44,36 +44,55 @@ const LoginScreen: React.FC<LoginProps> = ({ onAuthSuccess, onNavigateRegister }
     return (
         <div className="auth-container">
             <div className="auth-left-panel">
-                <h1 className="logo">AthleTrack</h1>
-                <h2 className="welcome-text">
-                    Witaj! <br/> Trenuj Ciężko. Zostań Silny.
-                </h2>
+                <div className="auth-form-container">
+                    <h1 className="logo">AthleTrack<span>.</span></h1>
+                    <h2 className="welcome-text">
+                        Witaj! <br/> Trenuj Ciężko. Zostań Silny.
+                    </h2>
 
-                <form onSubmit={handleLogin} className="auth-form">
-                    {/* Pole Email */}
-                    <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={loading} />
-                    
-                    {/* Pole Hasło */}
-                    <input type="password" placeholder="Hasło" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={loading} />
-                    
-                    <button type="submit" className="neon-button" disabled={loading}>
-                        {loading ? 'Logowanie...' : 'Log In'}
-                    </button>
-                    
-                    {error && <p className="error-message">{error}</p>}
-                </form>
+                    <form onSubmit={handleLogin} className="auth-form">
+                        <div className="auth-input-group">
+                            <label>Email</label>
+                            <input 
+                                type="email" 
+                                placeholder="Wpisz swój email" 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                required 
+                                disabled={loading} 
+                            />
+                        </div>
+                        
+                        <div className="auth-input-group">
+                            <label>Hasło</label>
+                            <input 
+                                type="password" 
+                                placeholder="Wpisz hasło" 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                required 
+                                disabled={loading} 
+                            />
+                        </div>
+                        
+                        <button type="submit" className="neon-button" disabled={loading}>
+                            {loading ? 'Autoryzacja...' : 'Log In'}
+                        </button>
+                        
+                        {error && <p className="error-message" style={{ color: '#ff4444', marginTop: '15px', fontSize: '14px' }}>{error}</p>}
+                    </form>
 
-                <p className="link-text">
-                    Nie masz konta? <span onClick={onNavigateRegister} className="neon-link">Zarejestruj się</span>
-                </p>
+                    <p className="link-text" style={{ marginTop: '20px', color: '#888' }}>
+                        Nie masz konta? <span onClick={onNavigateRegister} className="neon-link" style={{ color: '#00FF88', cursor: 'pointer', fontWeight: 'bold' }}>Zarejestruj się</span>
+                    </p>
+                </div>
             </div>
             
             <div className="auth-right-panel">
-                <h3 className="stats-text">500K+ users. <br/> 50M+ workouts logged.</h3>
-                {/* Reprezentacja grafiki siatki 3D */}
-                <div className="torso-graphic">
-                     
-                </div>
+                <h3 className="stats-text" style={{ fontSize: '24px', color: '#fff' }}>
+                    500K+ users. <br/> 
+                    <span style={{ color: '#00FF88' }}>50M+ workouts logged.</span>
+                </h3>
             </div>
         </div>
     );

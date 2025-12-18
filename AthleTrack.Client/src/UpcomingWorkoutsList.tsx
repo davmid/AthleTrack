@@ -16,24 +16,49 @@ const UpcomingWorkoutsList: React.FC<UpcomingWorkoutsProps> = ({ workouts, onBac
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     
     return (
-        <div className="list-container">
-            <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
-            <h2 style={{ color: '#00FF00' }}>🗓️ Nadchodzące Treningi ({upcomingWorkouts.length})</h2>
+        <div className="list-container" style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+            <button onClick={onBack} className="back-button" style={{ marginBottom: '20px' }}>
+                ← Powrót do Dashboardu
+            </button>
+            
+            <h2 style={{ color: '#00FF88', marginBottom: '25px' }}>
+                🗓️ Nadchodzące Treningi ({upcomingWorkouts.length})
+            </h2>
             
             {upcomingWorkouts.length === 0 ? (
-                <div className="empty-state">
-                    <p>Brak zaplanowanych treningów na przyszłość. Czas coś dodać!</p>
-                    <button className="neon-button" onClick={onAddWorkout}>Zaplanuj Trening</button>
+                <div className="empty-state" style={{ textAlign: 'center', padding: '50px' }}>
+                    <p style={{ color: '#666', marginBottom: '20px' }}>Brak zaplanowanych treningów. Czas coś dodać!</p>
+                    <button className="neon-button" onClick={onAddWorkout} style={{ width: 'auto', padding: '12px 30px' }}>
+                        Zaplanuj Trening
+                    </button>
                 </div>
             ) : (
                 <div className="upcoming-list">
                     {upcomingWorkouts.map((w) => (
-                        <div key={w.id} className="upcoming-card" onClick={() => alert(`Kliknięto: ${w.name} ${w.date}. Tutaj byłaby opcja "Rozpocznij Trening" lub "Edytuj"`)}>
-                            <div className="date-badge">{new Date(w.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' })}</div>
+                        <div key={w.id} className="upcoming-card history-card clickable-card">
+                            <div className="date-badge history-badge">
+                                {new Date(w.date).toLocaleDateString('pl-PL', { 
+                                    day: 'numeric', 
+                                    month: 'short' 
+                                })}
+                                <div style={{ fontSize: '10px', color: '#555', marginTop: '4px' }}>
+                                    {new Date(w.date).getFullYear()}
+                                </div>
+                            </div>
+
                             <div className="details">
                                 <h3>{w.name}</h3>
-                                <p>Planowany czas: **{w.durationMinutes} min**</p>
-                                <p className="notes-preview">{w.notes || 'Brak notatek.'}</p>
+                                <div style={{ display: 'flex', gap: '15px' }}>
+                                    <p>⏱ <strong>{w.durationMinutes || 0} min</strong></p>
+                                    {typeof w.workoutSets === 'number' && w.workoutSets > 0 && (
+                                        <p style={{ color: '#00FF88' }}>⚡ <strong>{w.workoutSets} serii</strong></p>
+                                    )}
+                                </div>
+                                {w.notes && <p className="notes-preview">📝 {w.notes}</p>}
+                            </div>
+                            
+                            <div className="card-action">
+                                <span style={{ color: '#00FF88', fontSize: '20px' }}>›</span>
                             </div>
                         </div>
                     ))}

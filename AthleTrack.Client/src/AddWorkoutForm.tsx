@@ -12,7 +12,9 @@ const AddWorkoutForm: React.FC<AddWorkoutFormProps> = ({ token, onWorkoutAdded, 
     
     const [name, setName] = useState('');
     const [date, setDate] = useState(today);
-    const [durationMinutes, setDurationMinutes] = useState(60);
+    const [durationMinutes, setDurationMinutes] = useState<number | string>(''); // Puste domyślnie
+    const [reps, setReps] = useState<number | string>('');
+    const [weightKg, setWeightKg] = useState<number | string>('');
     const [notes, setNotes] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -29,13 +31,17 @@ const AddWorkoutForm: React.FC<AddWorkoutFormProps> = ({ token, onWorkoutAdded, 
         }
 
         try {
+            // Formatuje datę do ISO, aby backend .NET poprawnie ją zmapował
             const startDatetime = `${date}T10:00:00Z`; 
 
             const newWorkout: NewWorkoutDto = {
                 name: name.trim(),
                 date: startDatetime,
-                durationMinutes: durationMinutes,
-                notes: notes.trim(),
+                // Konwersja na null jeśli pole jest puste (zgodnie z nowym modelem API)
+                durationMinutes: durationMinutes !== '' ? Number(durationMinutes) : null,
+                reps: reps !== '' ? Number(reps) : null,
+                weightKg: weightKg !== '' ? Number(weightKg) : null,
+                notes: notes.trim() || undefined,
             };
             
             const response = await fetch(`${API_BASE_URL}/Workouts`, {
@@ -48,7 +54,7 @@ const AddWorkoutForm: React.FC<AddWorkoutFormProps> = ({ token, onWorkoutAdded, 
             });
 
             if (response.ok) {
-                alert(`Trening "${newWorkout.name}" zaplanowany pomyślnie!`);
+                alert(`Trening "${newWorkout.name}" zapisany pomyślnie!`);
                 onWorkoutAdded(); 
             } else {
                 const data = await response.json();
@@ -64,11 +70,11 @@ const AddWorkoutForm: React.FC<AddWorkoutFormProps> = ({ token, onWorkoutAdded, 
 
     return (
         <div className="form-container">
-            <h2>➕ Dodaj Nowy Trening / Zaplanuj</h2>
+            <h2>➕ Dodaj Nowy Trening / Sesję</h2>
 
             <form onSubmit={handleSubmit} className="workout-form">
                 
-                <label>Nazwa Treningu</label>
+                <label>Nazwa Treningu (np. Klatka + Biceps)</label>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
 
                 <label>Data</label>
@@ -79,27 +85,50 @@ const AddWorkoutForm: React.FC<AddWorkoutFormProps> = ({ token, onWorkoutAdded, 
                     required 
                 />
 
-                <label>Czas trwania (minuty)</label>
-                <input 
-                    type="number" 
-                    value={durationMinutes} 
-                    onChange={(e) => setDurationMinutes(parseInt(e.target.value) || 0)} 
-                    min="1"
-                    required 
-                />
+                <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
+                    <div style={{ flex: 1 }}>
+                        <label>Czas (min)</label>
+                        <input 
+                            type="number" 
+                            value={durationMinutes} 
+                            onChange={(e) => setDurationMinutes(e.target.value)} 
+                            placeholder="Opcjonalnie"
+                            min="0"
+                        />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <label>Powtórzenia (łącznie)</label>
+                        <input 
+                            type="number" 
+                            value={reps} 
+                            onChange={(e) => setReps(e.target.value)} 
+                            placeholder="Np. 50"
+                        />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <label>Ciężar (kg)</label>
+                        <input 
+                            type="number" 
+                            step="0.5"
+                            value={weightKg} 
+                            onChange={(e) => setWeightKg(e.target.value)} 
+                            placeholder="Np. 82.5"
+                        />
+                    </div>
+                </div>
 
-                <label>Notatki</label>
+                <label style={{ marginTop: '15px' }}>Notatki / Komentarz</label>
                 <textarea 
                     value={notes} 
                     onChange={(e) => setNotes(e.target.value)} 
-                    rows={4} 
-                    placeholder="Cele, uwagi, planowane ćwiczenia..." 
+                    rows={3} 
+                    placeholder="Jak się czułeś? Jakieś rekordy?" 
                 />
                 
                 {error && <p className="error-message">{error}</p>}
 
                 <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                    <button type="submit" className="neon-button" disabled={loading || !name.trim() || durationMinutes < 1}>
+                    <button type="submit" className="neon-button" disabled={loading || !name.trim()}>
                         {loading ? 'Zapisywanie...' : 'Zapisz Trening'}
                     </button>
                     <button type="button" onClick={onCancel} className="cancel-button">

@@ -5,8 +5,9 @@ import AddPlanForm from './AddPlanForm';
 import ExerciseManagementScreen from './ExerciseManagementScreen';
 import AddWorkoutForm from './AddWorkoutForm';
 import WorkoutsList from './WorkoutsList';
+import UserProfile from './UserProfile';
 
-type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewPlans' | 'viewSchedule' | 'createNewPlan' | 'manageExercises';
+type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'createNewPlan' | 'manageExercises' | 'profile';
 
 interface DashboardProps {
     token: string;
@@ -20,45 +21,35 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
     const [error, setError] = useState<string | null>(null);
     const [currentView, setCurrentView] = useState<View>('dashboard');
 
-    const weeklyVolume = useMemo(() => workouts.length * 500, [workouts]);
     const workoutsThisWeek = useMemo(() => {
-        const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10);
-        return workouts.filter(w => w.date >= oneWeekAgo && w.date <= new Date().toISOString().substring(0, 10)).length;
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        return workouts.filter(w => new Date(w.date) >= oneWeekAgo).length;
+    }, [workouts]);
+
+    const totalWeightThisWeek = useMemo(() => {
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        return workouts
+            .filter(w => new Date(w.date) >= oneWeekAgo && w.weightKg)
+            .reduce((sum, w) => sum + (w.weightKg || 0), 0);
     }, [workouts]);
 
     const fetchUserDataAndWorkouts = async () => {
         setLoading(true);
-        setError(null);
         try {
             const [userRes, workoutsRes] = await Promise.all([
-                fetch(`${API_BASE_URL}/Auth/me`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                }),
-                fetch(`${API_BASE_URL}/Workouts`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                })
+                fetch(`${API_BASE_URL}/Auth/me`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                fetch(`${API_BASE_URL}/Workouts`, { headers: { 'Authorization': `Bearer ${token}` } })
             ]);
 
-            if (userRes.status === 401) {
-                onLogout();
-                return;
-            }
+            if (userRes.status === 401) { onLogout(); return; }
 
-            if (userRes.ok) {
-                const userData = await userRes.json();
-                setUser(userData);
-            }
+            if (userRes.ok) setUser(await userRes.json());
+            if (workoutsRes.ok) setWorkouts(await workoutsRes.json());
 
-            if (workoutsRes.ok) {
-                const workoutsData = await workoutsRes.json();
-                setWorkouts(workoutsData);
-            }
-
-            if (!userRes.ok && !workoutsRes.ok) {
-                setError("Błąd podczas komunikacji z serwerem.");
-            }
         } catch (err) {
-            setError("Błąd sieci. Sprawdź połączenie z API.");
+            setError("Błąd połączenia z serwerem.");
         } finally {
             setLoading(false);
         }
@@ -70,49 +61,48 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
 
     const renderMainContent = () => {
         if (loading) return <div className="loading-screen">Ładowanie...</div>;
-        if (error) return <div className="error-screen">Błąd: {error}</div>;
+        if (error) return <div className="error-screen">{error}</div>;
 
         switch (currentView) {
+            case 'profile':
+                return <UserProfile token={token} user={user} />;
             case 'addWorkout':
                 return <AddWorkoutForm token={token} onWorkoutAdded={() => { setCurrentView('dashboard'); fetchUserDataAndWorkouts(); }} onCancel={() => setCurrentView('dashboard')} />;
-
-        case 'viewWorkouts':
-            return <WorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} />;
-
+            case 'viewWorkouts':
+                return <WorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} />;
             case 'viewSchedule':
                 return <UpcomingWorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} onAddWorkout={() => setCurrentView('addWorkout')} />;
-
-            case 'createNewPlan':
-                return <AddPlanForm token={token} onPlanAdded={() => { setCurrentView('dashboard'); fetchUserDataAndWorkouts(); }} onCancel={() => setCurrentView('dashboard')} />;
-
             case 'manageExercises':
                 return <ExerciseManagementScreen token={token} onBack={() => setCurrentView('dashboard')} />;
-
             case 'dashboard':
             default:
                 return (
-                    <>
-                        <h1 className="content-header">Witaj, {user?.firstName}!</h1>
-                        <button className="start-workout-button" onClick={() => setCurrentView('addWorkout')}>
-                            ▶ NOWY TRENING
-                        </button>
+                    <div className="fade-in">
+                        <header className="dashboard-header">
+                            <div>
+                                <h1>Witaj, {user?.firstName}! 👋</h1>
+                                <p>Twój dzisiejszy plan to solidny trening.</p>
+                            </div>
+                            <button className="start-workout-button" onClick={() => setCurrentView('addWorkout')}>
+                                ▶ ZACZNIJ TRENING
+                            </button>
+                        </header>
 
-                        <h2 style={{ color: '#ccc', marginTop: '30px' }}>Przegląd Tygodnia</h2>
                         <div className="stats-grid">
-                            <div className="stat-card">
+                            <div className="stat-card highlight">
                                 <h3 className="stat-value">{workoutsThisWeek}</h3>
                                 <p className="stat-label">Treningi (7 dni)</p>
                             </div>
                             <div className="stat-card">
-                                <h3 className="stat-value">{weeklyVolume.toLocaleString()} kg</h3>
-                                <p className="stat-label">Objętość</p>
+                                <h3 className="stat-value">{totalWeightThisWeek.toLocaleString()} kg</h3>
+                                <p className="stat-label">Podniesiony ciężar</p>
                             </div>
                             <div className="stat-card">
-                                <h3 className="stat-value">🔥</h3>
-                                <p className="stat-label">Aktywny tydzień</p>
+                                <h3 className="stat-value">Rank</h3>
+                                <p className="stat-label">Wojownik</p>
                             </div>
                         </div>
-                    </>
+                    </div>
                 );
         }
     };
@@ -120,14 +110,26 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
     return (
         <div className="dashboard-layout">
             <nav className="dashboard-nav">
-                <div className="logo" style={{ marginBottom: '40px' }}>AthleTrack</div>
-                <ul className="nav-list">
-                    <li onClick={() => setCurrentView('dashboard')} className={currentView === 'dashboard' ? 'active' : ''}>🏠 Home</li>
-                    <li onClick={() => setCurrentView('viewWorkouts')} className={currentView === 'viewWorkouts' ? 'active' : ''}>🏋️ Historia</li>
-                    <li onClick={() => setCurrentView('viewSchedule')} className={currentView === 'viewSchedule' ? 'active' : ''}>🗓️ Planer</li>
-                    <li onClick={() => setCurrentView('manageExercises')} className={currentView === 'manageExercises' ? 'active' : ''}>💪 Ćwiczenia</li>
-                </ul>
-                <button className="logout-button" onClick={onLogout}>Wyloguj</button>
+                <div className="nav-top">
+                    <div className="logo">ATHLE<span>TRACK</span></div>
+                    <ul className="nav-list">
+                        <li onClick={() => setCurrentView('dashboard')} className={currentView === 'dashboard' ? 'active' : ''}>🏠 Home</li>
+                        <li onClick={() => setCurrentView('viewWorkouts')} className={currentView === 'viewWorkouts' ? 'active' : ''}>🏋️ Historia</li>
+                        <li onClick={() => setCurrentView('viewSchedule')} className={currentView === 'viewSchedule' ? 'active' : ''}>🗓️ Planer</li>
+                        <li onClick={() => setCurrentView('manageExercises')} className={currentView === 'manageExercises' ? 'active' : ''}>💪 Ćwiczenia</li>
+                    </ul>
+                </div>
+                
+                <div className="nav-bottom">
+                    <div className={`user-profile-item ${currentView === 'profile' ? 'active' : ''}`} onClick={() => setCurrentView('profile')}>
+                        <div className="avatar">{user?.firstName?.[0]}</div>
+                        <div className="user-details">
+                            <span className="user-name">{user?.firstName} {user?.lastName}</span>
+                            <span className="user-meta"> Mój Profil</span>
+                        </div>
+                    </div>
+                    <button className="logout-button" onClick={onLogout}>🚪 Wyloguj się</button>
+                </div>
             </nav>
 
             <main className="dashboard-content">

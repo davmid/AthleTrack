@@ -7,7 +7,7 @@ interface WorkoutsListProps {
 }
 
 const WorkoutsList: React.FC<WorkoutsListProps> = ({ workouts, onBack }) => {
-    
+
     const today = new Date().toISOString().substring(0, 10);
 
     const pastWorkouts = workouts
@@ -18,7 +18,7 @@ const WorkoutsList: React.FC<WorkoutsListProps> = ({ workouts, onBack }) => {
         <div className="list-container">
             <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
             <h2 style={{ color: '#007bff' }}>📜 Historia Treningów ({pastWorkouts.length})</h2>
-            
+
             {pastWorkouts.length === 0 ? (
                 <div className="empty-state">
                     <p>Nie masz jeszcze żadnych zakończonych treningów w historii.</p>
@@ -28,22 +28,22 @@ const WorkoutsList: React.FC<WorkoutsListProps> = ({ workouts, onBack }) => {
                     {pastWorkouts.map((w) => (
                         <div key={w.id} className="upcoming-card history-card">
                             <div className="date-badge history-badge">
-                                {new Date(w.date).toLocaleDateString('pl-PL', { 
-                                    day: 'numeric', 
+                                {new Date(w.date).toLocaleDateString('pl-PL', {
+                                    day: 'numeric',
                                     month: 'short',
-                                    year: 'numeric' 
+                                    year: 'numeric'
                                 })}
                             </div>
                             <div className="details">
                                 <h3>{w.name}</h3>
                                 <p>Czas trwania: <strong>{w.durationMinutes} min</strong></p>
                                 {w.notes && <p className="notes-preview">📝 {w.notes}</p>}
-                                
-                                {w.workoutSets && w.workoutSets.length > 0 && (
-                                    <div className="mini-sets-list">
-                                        <small>Wykonano {w.workoutSets.length} serii</small>
-                                    </div>
-                                )}
+
+                            {typeof w.workoutSets === 'number' && w.workoutSets > 0 && (
+                                <div className="mini-sets-list">
+                                    <small>Wykonano {w.workoutSets} serii</small>
+                                </div>
+                            )}
                             </div>
                         </div>
                     ))}
