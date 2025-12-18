@@ -24,9 +24,14 @@ public class Workout
     public DateTime Date { get; set; }
 
     [Required]
-    public int DurationMinutes { get; set; }
+    public int? DurationMinutes { get; set; }
 
     public string Notes { get; set; }
 
     public int? WorkoutSets { get; set; }
+
+    public int? Reps { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal? WeightKg { get; set; }
 }

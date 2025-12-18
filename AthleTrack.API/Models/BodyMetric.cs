@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
+using System.Text.Json.Serialization; // Potrzebne do JsonIgnore
 
 namespace AthleTrack.API.Models
 {
@@ -9,28 +10,31 @@ namespace AthleTrack.API.Models
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public Users User { get; set; }
+
+        [JsonIgnore]
+        public Users? User { get; set; }
 
         [Required]
-        public DateTime MeasurementDate { get; set; }
+        public DateTime MeasurementDate { get; set; } = DateTime.UtcNow;
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? WeightKg { get; set; }
 
-        [Column(TypeName = "decimal(4, 2)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? BodyFatPercent { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? WaistCm { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? ChestCm { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? BicepsCm { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
     }
 }
