@@ -1,0 +1,398 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\controllers\\workoutscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\controllers\\workoutscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\workout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\controllers\\trainingplanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\controllers\\trainingplanscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\controllers\\exercisescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\controllers\\exercisescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\workoutset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\workoutset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\trainingplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\trainingplan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\planitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\planitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\bodymetric.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\bodymetric.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\auth\\registrationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\auth\\registrationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\models\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\models\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\athletrack.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\athletrack.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\migrations\\20251213011600_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\migrations\\20251213011600_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\migrations\\20251212234048_finalsetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\migrations\\20251212234048_finalsetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\applicationdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\applicationdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|c:\\users\\dawid\\source\\repos\\athletrack.api\\athletrack.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6CBD38A2-6D03-4B7C-AAF0-2553C0E81B1C}|AthleTrack.API\\AthleTrack.API.csproj|solutionrelative:athletrack.api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 13,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Workout.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Workout.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\Workout.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Workout.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\Workout.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAwwBQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T03:51:44.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Users.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\Users.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Users.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T03:46:11.293Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TrainingPlan.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\TrainingPlan.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\TrainingPlan.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\TrainingPlan.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\TrainingPlan.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T04:09:36.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\ApplicationDbContext.cs",
+              "RelativeToolTip": "AthleTrack.API\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T01:10:12.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ExercisesController.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\ExercisesController.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Controllers\\ExercisesController.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\ExercisesController.cs",
+              "RelativeToolTip": "AthleTrack.API\\Controllers\\ExercisesController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T22:26:44.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TrainingPlansController.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\TrainingPlansController.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Controllers\\TrainingPlansController.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\TrainingPlansController.cs",
+              "RelativeToolTip": "AthleTrack.API\\Controllers\\TrainingPlansController.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAADwv18AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T04:50:33.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "AthleTrack.API\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T22:29:53.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WorkoutsController.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\WorkoutsController.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Controllers\\WorkoutsController.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\WorkoutsController.cs",
+              "RelativeToolTip": "AthleTrack.API\\Controllers\\WorkoutsController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAIwDgAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T22:30:02.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "WorkoutSet.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\WorkoutSet.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\WorkoutSet.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\WorkoutSet.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\WorkoutSet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T04:49:25.354Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PlanItem.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\PlanItem.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\PlanItem.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\PlanItem.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\PlanItem.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAIwCUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T04:10:08.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Exercise.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Exercise.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\Exercise.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Exercise.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\Exercise.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T23:39:07.185Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BodyMetric.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\BodyMetric.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\BodyMetric.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\BodyMetric.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\BodyMetric.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T22:28:49.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "RegistrationDto.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Auth\\RegistrationDto.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\Auth\\RegistrationDto.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Auth\\RegistrationDto.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\Auth\\RegistrationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T14:57:17.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Program.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Program.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Program.cs",
+              "RelativeToolTip": "AthleTrack.API\\Program.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAYwIUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T01:16:43.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "AthleTrack.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T14:58:00.035Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Auth\\LoginDto.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Models\\Auth\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Models\\Auth\\LoginDto.cs",
+              "RelativeToolTip": "AthleTrack.API\\Models\\Auth\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T14:57:38.065Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AthleTrack.API.csproj",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\AthleTrack.API.csproj",
+              "RelativeDocumentMoniker": "AthleTrack.API\\AthleTrack.API.csproj",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\AthleTrack.API.csproj",
+              "RelativeToolTip": "AthleTrack.API\\AthleTrack.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-13T21:08:03.248Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "20251212234048_FinalSetup.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Migrations\\20251212234048_FinalSetup.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Migrations\\20251212234048_FinalSetup.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Migrations\\20251212234048_FinalSetup.cs",
+              "RelativeToolTip": "AthleTrack.API\\Migrations\\20251212234048_FinalSetup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T15:10:24.987Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "20251213011600_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Migrations\\20251213011600_InitialCreate.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\Migrations\\20251213011600_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\Migrations\\20251213011600_InitialCreate.cs",
+              "RelativeToolTip": "AthleTrack.API\\Migrations\\20251213011600_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T15:10:26.328Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\appsettings.json",
+              "RelativeDocumentMoniker": "AthleTrack.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\appsettings.json",
+              "RelativeToolTip": "AthleTrack.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-13T01:01:52.531Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ApplicationDbContextFactory.cs",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\ApplicationDbContextFactory.cs",
+              "RelativeDocumentMoniker": "AthleTrack.API\\ApplicationDbContextFactory.cs",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\ApplicationDbContextFactory.cs",
+              "RelativeToolTip": "AthleTrack.API\\ApplicationDbContextFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T01:10:15.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "AthleTrack.API\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\dawid\\source\\repos\\AthleTrack.API\\AthleTrack.API\\appsettings.Development.json",
+              "RelativeToolTip": "AthleTrack.API\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-13T01:02:02.063Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

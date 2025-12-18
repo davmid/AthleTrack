@@ -1,0 +1,10 @@
+# --- .NET / Backend ---
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates

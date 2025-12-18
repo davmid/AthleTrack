@@ -1,0 +1,323 @@
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    /* Zapewnia, że zajmują całą dostępną wysokość */
+    height: 100%; 
+    /* Domyślne tło dla całej aplikacji, jeśli dashboard-layout nie pokryje 100% */
+    background-color: #0d0d0d; 
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* GŁÓWNY UKŁAD (DashboardScreen) */
+.dashboard-layout {
+    display: flex; /* Użycie Flexbox do ułożenia sidebara i treści */
+    min-height: 100vh; /* Zapewnienie, że zajmuje co najmniej całą wysokość widoku */
+    width: 100%;
+}
+
+.auth-container {
+    display: flex;
+    height: 100vh;
+    width: 100%; /* Wypełnia całą szerokość */
+    box-sizing: border-box;
+    background-color: #000;
+}
+
+.auth-left-panel {
+    /* Poprawka: Dajemy 50% szerokości, aby panele były równe */
+    flex: 1 0 50%; 
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #111;
+}
+
+.auth-right-panel {
+    /* Poprawka: Dajemy 50% szerokości */
+    flex: 1 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    border-left: 2px solid #00FF0033; 
+}
+
+/* ... inne style autoryzacji ... */
+
+/* ------------------- DASHBOARD (Desktop) ------------------- */
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%; /* Wypełnienie całej strony */
+}
+.dashboard-nav {
+    width: 250px; 
+    background-color: #1a1a1a;
+    padding: 30px 20px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list li {
+    margin-bottom: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.nav-list li a {
+    color: inherit; /* Dziedziczenie koloru */
+    text-decoration: none;
+}
+
+.nav-list li:hover {
+    color: #00FF00;
+}
+
+.logout-button {
+    margin-top: auto;
+    padding-top: 20px;
+    border: none;
+    background: none;
+    color: #999;
+    font-size: 14px;
+    cursor: pointer;
+    border-top: 1px solid #333;
+    text-align: left;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 40px;
+    background-color: #111;
+    overflow-y: auto; /* Pozwala na przewijanie głównej zawartości */
+}
+
+/* ... inne style dashboardu (header, button, grid) ... */
+
+/* ------------------- FORMULARZ I LISTA TRENINGÓW ------------------- */
+
+.form-container input, .form-container textarea {
+    padding: 10px;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background-color: #222;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ważne dla paddingu w 100% szerokości */
+}
+
+.form-container label {
+    display: block;
+    margin-top: 10px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.cancel-button {
+    background-color: #444;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.workout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.workout-card-list {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #00FF00;
+}
+
+.workout-card-list h3 {
+    margin-top: 0;
+    color: #00FF00;
+}
+
+.back-button {
+    background: none;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.2s;
+}
+.back-button:hover {
+    background-color: #222;
+}
+
+/* ------------------- RESPONSYWNOŚĆ (Mobile) ------------------- */
+
+@media (max-width: 900px) {
+    /* Ukrycie Sidebaru i utworzenie Top Baru */
+    .dashboard-layout {
+        flex-direction: column; /* Ustawienie stackowane */
+    }
+
+    .dashboard-nav {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        padding: 15px 20px;
+        flex-direction: row; /* Elementy w rzędzie */
+        justify-content: space-between;
+        align-items: center;
+        border-right: none;
+        border-bottom: 1px solid #333;
+    }
+    
+    .dashboard-nav .logo {
+        margin-bottom: 0;
+    }
+
+    .nav-list {
+        display: none; /* Ukryj pełną listę na mobile, można zastąpić Hamburger Menu */
+    }
+
+    .logout-button {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        font-size: 16px;
+    }
+
+    .dashboard-content {
+        padding: 20px; /* Mniejsze paddingi */
+    }
+    
+    .start-workout-button {
+        width: 100%; /* Przycisk startowy na całą szerokość */
+    }
+
+    /* Układ autoryzacji stackowany na mobile */
+    .auth-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .auth-left-panel, .auth-right-panel {
+        flex: 1 0 auto; /* Usuń sztywny podział 50% */
+        padding: 40px 20px;
+    }
+    
+    .auth-right-panel {
+        order: -1; /* Przenieś grafikę motywacyjną na górę */
+        height: 200px;
+        border-left: none;
+        border-bottom: 2px solid #00FF0033;
+    }
+}
+
+
+/* upcoming workouts list */
+
+.upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.upcoming-card {
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #00FF00;
+}
+
+.date-badge {
+    background-color: #00FF00;
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 4px;
+    margin-right: 15px;
+    text-align: center;
+    width: 60px; /* Stała szerokość dla daty */
+    flex-shrink: 0;
+}
+
+.upcoming-card .details h3 {
+    margin: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.upcoming-card .details p {
+    margin: 3px 0 0 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.notes-preview {
+    font-style: italic;
+    color: #999 !important;
+}
+
+.empty-state {
+    padding: 30px;
+    background-color: #1A1A1A;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.workout-card {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid #007bff;
+}
+
+.workout-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.sets-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sets-summary li {
+    background: #333;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+}
