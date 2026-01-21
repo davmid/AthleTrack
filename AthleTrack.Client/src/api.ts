@@ -51,7 +51,7 @@ export interface Workout {
     notes?: string;
     workoutSets?: number | null;
 }
-
+//TODO
 export interface Workout {
     id: number;
     userId: number;

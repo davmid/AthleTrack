@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { API_BASE_URL, type UserDto, type Workout } from './api';
+import { API_BASE_URL, type UserDto, type Workout, type BodyMetric } from './api';
+import { 
+    XAxis, YAxis, CartesianGrid, 
+    Tooltip, ResponsiveContainer, AreaChart, Area 
+} from 'recharts';
+import CalendarHeatmap from 'react-calendar-heatmap';
+import 'react-calendar-heatmap/dist/styles.css';
 import UpcomingWorkoutsList from './UpcomingWorkoutsList';
-import AddPlanForm from './AddPlanForm';
 import ExerciseManagementScreen from './ExerciseManagementScreen';
 import AddWorkoutForm from './AddWorkoutForm';
 import WorkoutsList from './WorkoutsList';
 import UserProfile from './UserProfile';
 
-type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'createNewPlan' | 'manageExercises' | 'profile';
+type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'manageExercises' | 'profile';
 
 interface DashboardProps {
     token: string;
@@ -17,6 +22,7 @@ interface DashboardProps {
 const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
     const [user, setUser] = useState<UserDto | null>(null);
     const [workouts, setWorkouts] = useState<Workout[]>([]);
+    const [bodyMetrics, setBodyMetrics] = useState<BodyMetric[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentView, setCurrentView] = useState<View>('dashboard');
@@ -24,56 +30,86 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
     const workoutsThisWeek = useMemo(() => {
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        return workouts.filter(w => new Date(w.date) >= oneWeekAgo).length;
+        return workouts.filter(w => w.date && new Date(w.date) >= oneWeekAgo).length;
     }, [workouts]);
 
-    const totalWeightThisWeek = useMemo(() => {
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const latestMetric = useMemo(() => {
+        if (!bodyMetrics || bodyMetrics.length === 0) return null;
+        return [...bodyMetrics].sort((a, b) => {
+            const dateA = new Date(a.measurementDate ?? 0).getTime();
+            const dateB = new Date(b.measurementDate ?? 0).getTime();
+            return dateB - dateA;
+        })[0];
+    }, [bodyMetrics]);
+
+    const workoutChartData = useMemo(() => {
+        if (!workouts.length) return [];
         return workouts
-            .filter(w => new Date(w.date) >= oneWeekAgo && w.weightKg)
-            .reduce((sum, w) => sum + (w.weightKg || 0), 0);
+            .slice()
+            .sort((a, b) => new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime())
+            .slice(-10)
+            .map(w => ({
+                name: w.date ? new Date(w.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' }) : '?',
+                volume: w.weightKg || 0,
+            }));
     }, [workouts]);
 
-    const fetchUserDataAndWorkouts = async () => {
+    const weightChartData = useMemo(() => {
+        if (!bodyMetrics.length) return [];
+        return bodyMetrics
+            .filter(m => m.measurementDate && m.weightKg !== null)
+            .sort((a, b) => new Date(a.measurementDate!).getTime() - new Date(b.measurementDate!).getTime())
+            .map(m => ({
+                date: new Date(m.measurementDate!).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' }),
+                weight: m.weightKg,
+            }));
+    }, [bodyMetrics]);
+
+    const heatmapValues = useMemo(() => {
+        return workouts.map(w => ({
+            date: w.date ? w.date.split('T')[0] : '',
+            count: 1
+        })).filter(v => v.date !== '');
+    }, [workouts]);
+
+    const fetchData = async () => {
         setLoading(true);
+        setError(null);
         try {
-            const [userRes, workoutsRes] = await Promise.all([
-                fetch(`${API_BASE_URL}/Auth/me`, { headers: { 'Authorization': `Bearer ${token}` } }),
-                fetch(`${API_BASE_URL}/Workouts`, { headers: { 'Authorization': `Bearer ${token}` } })
+            const headers = { 'Authorization': `Bearer ${token}` };
+            const [userRes, workoutsRes, metricsRes] = await Promise.all([
+                fetch(`${API_BASE_URL}/Auth/me`, { headers }),
+                fetch(`${API_BASE_URL}/Workouts`, { headers }),
+                fetch(`${API_BASE_URL}/BodyMetrics`, { headers })
             ]);
 
             if (userRes.status === 401) { onLogout(); return; }
-
+            
             if (userRes.ok) setUser(await userRes.json());
             if (workoutsRes.ok) setWorkouts(await workoutsRes.json());
+            if (metricsRes.ok) setBodyMetrics(await metricsRes.json());
+            else if (metricsRes.status === 405) console.error("Endpoint GET /BodyMetrics nie istnieje w API!");
 
         } catch (err) {
+            console.error(err);
             setError("Błąd połączenia z serwerem.");
         } finally {
             setLoading(false);
         }
     };
 
-    useEffect(() => {
-        fetchUserDataAndWorkouts();
-    }, [token]);
+    useEffect(() => { fetchData(); }, [token]);
 
     const renderMainContent = () => {
-        if (loading) return <div className="loading-screen">Ładowanie...</div>;
+        if (loading) return <div className="loading-screen">Ładowanie danych...</div>;
         if (error) return <div className="error-screen">{error}</div>;
 
         switch (currentView) {
-            case 'profile':
-                return <UserProfile token={token} user={user} />;
-            case 'addWorkout':
-                return <AddWorkoutForm token={token} onWorkoutAdded={() => { setCurrentView('dashboard'); fetchUserDataAndWorkouts(); }} onCancel={() => setCurrentView('dashboard')} />;
-            case 'viewWorkouts':
-                return <WorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} />;
-            case 'viewSchedule':
-                return <UpcomingWorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} onAddWorkout={() => setCurrentView('addWorkout')} />;
-            case 'manageExercises':
-                return <ExerciseManagementScreen token={token} onBack={() => setCurrentView('dashboard')} />;
+            case 'profile': return <UserProfile token={token} user={user} />;
+            case 'addWorkout': return <AddWorkoutForm token={token} onWorkoutAdded={() => { setCurrentView('dashboard'); fetchData(); }} onCancel={() => setCurrentView('dashboard')} />;
+            case 'viewWorkouts': return <WorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} />;
+            case 'viewSchedule': return <UpcomingWorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} onAddWorkout={() => setCurrentView('addWorkout')} />;
+            case 'manageExercises': return <ExerciseManagementScreen token={token} onBack={() => setCurrentView('dashboard')} />;
             case 'dashboard':
             default:
                 return (
@@ -81,7 +117,7 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                         <header className="dashboard-header">
                             <div>
                                 <h1>Witaj, {user?.firstName}! 👋</h1>
-                                <p>Twój dzisiejszy plan to solidny trening.</p>
+                                <p>Twój postęp jest pod kontrolą.</p>
                             </div>
                             <button className="start-workout-button" onClick={() => setCurrentView('addWorkout')}>
                                 ▶ ZACZNIJ TRENING
@@ -89,17 +125,81 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                         </header>
 
                         <div className="stats-grid">
-                            <div className="stat-card highlight">
+                            <div className="stat-card">
                                 <h3 className="stat-value">{workoutsThisWeek}</h3>
                                 <p className="stat-label">Treningi (7 dni)</p>
                             </div>
                             <div className="stat-card">
-                                <h3 className="stat-value">{totalWeightThisWeek.toLocaleString()} kg</h3>
-                                <p className="stat-label">Podniesiony ciężar</p>
+                                <h3 className="stat-value">{latestMetric?.weightKg ?? '--'} kg</h3>
+                                <p className="stat-label">Ostatnia Waga</p>
                             </div>
                             <div className="stat-card">
-                                <h3 className="stat-value">Rank</h3>
-                                <p className="stat-label">Wojownik</p>
+                                <h3 className="stat-value">{latestMetric?.bodyFatPercent ?? '--'}%</h3>
+                                <p className="stat-label">Tkanka Tłuszczowa</p>
+                            </div>
+                        </div>
+
+                        <div className="visualization-section">
+                            {/* Wykres Wagi Ciała */}
+                            <div className="chart-container">
+                                <h3>Trend Masy Ciała</h3>
+                                <div style={{ width: '100%', height: 280 }}>
+                                    {weightChartData.length > 0 ? (
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <AreaChart data={weightChartData}>
+                                                <defs>
+                                                    <linearGradient id="colorWeight" x1="0" y1="0" x2="0" y2="1">
+                                                        <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.8}/>
+                                                        <stop offset="95%" stopColor="#00d4ff" stopOpacity={0}/>
+                                                    </linearGradient>
+                                                </defs>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#222" />
+                                                <XAxis dataKey="date" stroke="#888" />
+                                                <YAxis stroke="#888" domain={['dataMin - 1', 'dataMax + 1']} />
+                                                <Tooltip contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }} />
+                                                <Area type="monotone" dataKey="weight" stroke="#00d4ff" fillOpacity={1} fill="url(#colorWeight)" />
+                                            </AreaChart>
+                                        </ResponsiveContainer>
+                                    ) : (
+                                        <div className="no-data-msg">Brak danych o wadze do wyświetlenia wykresu.</div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Wykres Objętości */}
+                            <div className="chart-container">
+                                <h3>Analityka Objętości</h3>
+                                <div style={{ width: '100%', height: 280 }}>
+                                    {workoutChartData.length > 0 ? (
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <AreaChart data={workoutChartData}>
+                                                <defs>
+                                                    <linearGradient id="colorVol" x1="0" y1="0" x2="0" y2="1">
+                                                        <stop offset="5%" stopColor="#00FF88" stopOpacity={0.8}/>
+                                                        <stop offset="95%" stopColor="#00FF88" stopOpacity={0}/>
+                                                    </linearGradient>
+                                                </defs>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#222" />
+                                                <XAxis dataKey="name" stroke="#888" />
+                                                <YAxis stroke="#888" />
+                                                <Tooltip contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }} />
+                                                <Area type="monotone" dataKey="volume" stroke="#00FF88" fillOpacity={1} fill="url(#colorVol)" />
+                                            </AreaChart>
+                                        </ResponsiveContainer>
+                                    ) : (
+                                        <div className="no-data-msg">Zrealizuj treningi, aby zobaczyć wykres objętości.</div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="heatmap-container">
+                                <h3>Systematyczność</h3>
+                                <CalendarHeatmap
+                                    startDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
+                                    endDate={new Date()}
+                                    values={heatmapValues}
+                                    classForValue={(value) => !value ? 'color-empty' : 'color-scale-active'}
+                                />
                             </div>
                         </div>
                     </div>
@@ -119,19 +219,16 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                         <li onClick={() => setCurrentView('manageExercises')} className={currentView === 'manageExercises' ? 'active' : ''}>💪 Ćwiczenia</li>
                     </ul>
                 </div>
-                
                 <div className="nav-bottom">
-                    <div className={`user-profile-item ${currentView === 'profile' ? 'active' : ''}`} onClick={() => setCurrentView('profile')}>
-                        <div className="avatar">{user?.firstName?.[0]}</div>
+                    <div className="user-profile-item" onClick={() => setCurrentView('profile')}>
+                        <div className="avatar">{user?.firstName?.[0] || 'U'}</div>
                         <div className="user-details">
                             <span className="user-name">{user?.firstName} {user?.lastName}</span>
-                            <span className="user-meta"> Mój Profil</span>
                         </div>
                     </div>
-                    <button className="logout-button" onClick={onLogout}>🚪 Wyloguj się</button>
+                    <button className="logout-button" onClick={onLogout}>🚪 Wyloguj</button>
                 </div>
             </nav>
-
             <main className="dashboard-content">
                 {renderMainContent()}
             </main>

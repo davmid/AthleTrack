@@ -30,6 +30,21 @@ public class BodyMetricsController : ControllerBase
         return Ok(lastMetric);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAllMetrics()
+    {
+        var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userIdString)) return Unauthorized();
+
+        var userId = int.Parse(userIdString);
+        var metrics = await _context.BodyMetrics
+            .Where(m => m.UserId == userId)
+            .OrderBy(m => m.MeasurementDate)
+            .ToListAsync();
+
+        return Ok(metrics);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddMetric(BodyMetric metric)
     {

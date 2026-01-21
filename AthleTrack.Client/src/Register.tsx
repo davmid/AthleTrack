@@ -128,10 +128,10 @@ const RegisterScreen: React.FC<RegisterProps> = ({ onNavigateLogin }) => {
                 </form>
 
                 <p className="link-text" style={{ marginTop: '20px', color: '#888' }}>
-                    Masz już konta? <span onClick={onNavigateLogin} className="neon-link" style={{ color: '#00FF88', cursor: 'pointer', fontWeight: 'bold' }}>Zarejestruj się</span>
+                    Masz już konto? <span onClick={onNavigateLogin} className="neon-link" style={{ color: '#00FF88', cursor: 'pointer', fontWeight: 'bold' }}>Zaloguj się</span>
                 </p>
             </div>
-            
+
             <div className="auth-right-panel">
                 <h3 className="stats-text" style={{ fontSize: '24px', color: '#fff' }}>
                     Define Your <br/> 
