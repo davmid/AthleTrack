@@ -51,7 +51,7 @@ export interface Workout {
     notes?: string;
     workoutSets?: number | null;
 }
-//TODO
+
 export interface Workout {
     id: number;
     userId: number;
@@ -85,17 +85,6 @@ export interface NewWorkoutSetDto {
     timeSeconds: number | null;
 }
 
-export interface PlanItem {
-    id: number;
-    trainingPlanId: number;
-    exerciseId: number;
-    exercise?: Exercise;
-    sets: number;
-    repetitions: number;
-    targetWeightKg?: number;
-    targetTimeSeconds?: number;
-}
-
 export interface BodyMetric {
     measurementDate?: string;
     weightKg: number | null;
@@ -114,28 +103,6 @@ export interface NewBodyMetricDto {
     chestCm: number | null;
     bicepsCm: number | null;
     notes?: string;
-}
-
-export interface TrainingPlan {
-    id: number;
-    userId: number;
-    name: string;
-    description: string;
-    planItems: PlanItem[];
-}
-
-export interface NewPlanItemDto {
-    exerciseId: number;
-    sets: number;
-    repetitions: number;
-    targetWeightKg?: number | null;
-    targetTimeSeconds?: number | null;
-}
-
-export interface NewTrainingPlanDto {
-    name: string;
-    description: string;
-    planItems: NewPlanItemDto[];
 }
 
 

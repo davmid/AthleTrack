@@ -12,6 +12,7 @@ import PersonalRecords from './PersonalRecords';
 import AddWorkoutForm from './AddWorkoutForm';
 import WorkoutsList from './WorkoutsList';
 import UserProfile from './UserProfile';
+import { Activity, Calendar, Dumbbell, Flame, Hand, History, Home, LogOut, Play, Trophy, User, Weight } from 'lucide-react';
 
 type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'manageExercises' | 'personalRecords' | 'profile';
 
@@ -117,25 +118,36 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                 return (
                     <div className="fade-in">
                         <header className="dashboard-header">
-                            <div>
-                                <h1>Witaj, {user?.firstName}! 👋</h1>
-                                <p>Twój postęp jest pod kontrolą.</p>
+                            <div className="welcome-container">
+                                <h1>Witaj, {user?.firstName}!</h1>
+                                <div className="stat-icon-wrapper" style={{ color: '#00FF88' }}>
+                                    <Hand size={44} />
+                                </div>
                             </div>
                             <button className="start-workout-button" onClick={() => setCurrentView('addWorkout')}>
-                                ▶ ZACZNIJ TRENING
+                                <Play size={18} fill="currentColor" /> ZACZNIJ TRENING
                             </button>
                         </header>
 
                         <div className="stats-grid">
                             <div className="stat-card">
+                                <div className="stat-icon-wrapper" style={{ color: '#00FF88' }}>
+                                    <Flame size={26} />
+                                </div>
                                 <h3 className="stat-value">{workoutsThisWeek}</h3>
                                 <p className="stat-label">Treningi (7 dni)</p>
                             </div>
                             <div className="stat-card">
+                                <div className="stat-icon-wrapper" style={{ color: '#00d4ff' }}>
+                                    <Weight size={26} />
+                                </div>
                                 <h3 className="stat-value">{latestMetric?.weightKg ?? '--'} kg</h3>
                                 <p className="stat-label">Ostatnia Waga</p>
                             </div>
                             <div className="stat-card">
+                                <div className="stat-icon-wrapper" style={{ color: '#a155ff' }}>
+                                    <Activity size={26} />
+                                </div>
                                 <h3 className="stat-value">{latestMetric?.bodyFatPercent ?? '--'}%</h3>
                                 <p className="stat-label">Tkanka Tłuszczowa</p>
                             </div>
@@ -214,21 +226,35 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                 <div className="nav-top">
                     <div className="logo">ATHLE<span>TRACK</span></div>
                     <ul className="nav-list">
-                        <li onClick={() => setCurrentView('dashboard')} className={currentView === 'dashboard' ? 'active' : ''}>🏠 Home</li>
-                        <li onClick={() => setCurrentView('viewWorkouts')} className={currentView === 'viewWorkouts' ? 'active' : ''}>🏋️ Historia</li>
-                        <li onClick={() => setCurrentView('viewSchedule')} className={currentView === 'viewSchedule' ? 'active' : ''}>🗓️ Planer</li>
-                        <li onClick={() => setCurrentView('manageExercises')} className={currentView === 'manageExercises' ? 'active' : ''}>💪 Ćwiczenia</li>
-                        <li onClick={() => setCurrentView('personalRecords')} className={currentView === 'personalRecords' ? 'active' : ''}>📊 Rekordy</li>
+                        <li onClick={() => setCurrentView('dashboard')} className={currentView === 'dashboard' ? 'active' : ''}>
+                            <Home size={20} /> Home
+                        </li>
+                        <li onClick={() => setCurrentView('viewWorkouts')} className={currentView === 'viewWorkouts' ? 'active' : ''}>
+                            <History size={20} /> Historia
+                        </li>
+                        <li onClick={() => setCurrentView('viewSchedule')} className={currentView === 'viewSchedule' ? 'active' : ''}>
+                            <Calendar size={20} /> Planer
+                        </li>
+                        <li onClick={() => setCurrentView('manageExercises')} className={currentView === 'manageExercises' ? 'active' : ''}>
+                            <Dumbbell size={20} /> Ćwiczenia
+                        </li>
+                        <li onClick={() => setCurrentView('personalRecords')} className={currentView === 'personalRecords' ? 'active' : ''}>
+                            <Trophy size={20} /> Rekordy
+                        </li>
                     </ul>
                 </div>
                 <div className="nav-bottom">
                     <div className="user-profile-item" onClick={() => setCurrentView('profile')}>
-                        <div className="avatar">{user?.firstName?.[0] || 'U'}</div>
+                        <div className="avatar">
+                            <User size={20} color="#000" />
+                        </div>
                         <div className="user-details">
                             <span className="user-name">{user?.firstName} {user?.lastName}</span>
                         </div>
                     </div>
-                    <button className="logout-button" onClick={onLogout}>🚪 Wyloguj</button>
+                    <button className="logout-button" onClick={onLogout}>
+                        <LogOut size={18} /> Wyloguj
+                    </button>
                 </div>
             </nav>
             <main className="dashboard-content">

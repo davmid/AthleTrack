@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, type Exercise, type NewExerciseDto } from './api';
+import { Dumbbell, Plus, ChevronRight, Activity } from 'lucide-react';
 
 interface ExerciseManagementProps {
     token: string;
@@ -20,7 +21,6 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
     const [newName, setNewName] = useState('');
     const [newMuscleGroup, setNewMuscleGroup] = useState(MUSCLE_GROUPS[0]);
     const [newIsCardio, setNewIsCardio] = useState(false);
-    const [defaultReps, setDefaultReps] = useState('12'); // Add state for default reps
     const [addLoading, setAddLoading] = useState(false);
     const [addError, setAddError] = useState<string | null>(null);
 
@@ -37,10 +37,10 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
                 data.sort((a, b) => a.name.localeCompare(b.name));
                 setExercises(data);
             } else {
-                setError(`Błąd pobierania ćwiczeń: Status ${response.status}`);
+                setError(`Błąd pobierania danych.`);
             }
         } catch (err) {
-            setError('Błąd sieci podczas ładowania biblioteki ćwiczeń.');
+            setError('Błąd sieci.');
         } finally {
             setLoading(false);
         }
@@ -61,8 +61,6 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
             isCardio: newIsCardio,
         };
 
-        console.log('Sending new exercise:', newExercise);
-
         try {
             const response = await fetch(`${API_BASE_URL}/Exercises`, {
                 method: 'POST',
@@ -73,128 +71,118 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
                 body: JSON.stringify(newExercise),
             });
 
-            console.log('Response status:', response.status);
-            const responseText = await response.text();
-            console.log('Response body:', responseText);
-
             if (response.ok) {
                 setIsAdding(false);
                 setNewName('');
                 fetchExercises();
             } else {
-                let errorMessage = 'Błąd walidacji danych.';
-                try {
-                    const data = JSON.parse(responseText);
-                    errorMessage = data.title || errorMessage;
-                } catch {
-                    errorMessage = responseText || errorMessage;
-                }
-                setAddError(errorMessage);
+                setAddError('Nie udało się zapisać ćwiczenia.');
             }
         } catch (err) {
-            console.error('Network error:', err);
-            setAddError('Błąd sieci podczas dodawania.');
+            setAddError('Błąd połączenia.');
         } finally {
             setAddLoading(false);
         }
     };
 
-    const renderAddForm = () => (
-        <div className="form-container">
-            <h3>➕ Dodaj Nowe Ćwiczenie do Biblioteki</h3>
-            <form onSubmit={handleAddExercise}>
-                <label>Nazwa Ćwiczenia</label>
-                <input
-                    type="text"
-                    value={newName}
-                    onChange={(e) => setNewName(e.target.value)}
-                    required
-                />
-
-                <label style={{ marginTop: '15px', display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                    <input
-                        type="checkbox"
-                        checked={newIsCardio}
-                        onChange={(e) => setNewIsCardio(e.target.checked)}
-                        style={{ marginRight: '10px' }}
-                    />
-                    To jest ćwiczenie Cardio
-                </label>
-
-                {!newIsCardio && (
-                    <>
-                        <label style={{ marginTop: '15px' }}>Główna Grupa Mięśniowa</label>
-                        <select
-                            value={newMuscleGroup}
-                            onChange={(e) => setNewMuscleGroup(e.target.value)}
+    if (isAdding) {
+        return (
+            <div className="list-container">
+                <button onClick={() => setIsAdding(false)} className="back-button">← Wróć do listy</button>
+                <div className="form-container" style={{ marginTop: '20px' }}>
+                    <h2 style={{ color: '#00FF88', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <Plus size={28} /> Nowe Ćwiczenie
+                    </h2>
+                    <form onSubmit={handleAddExercise}>
+                        <label>Nazwa</label>
+                        <input
+                            type="text"
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            placeholder="np. Wyciskanie hantli"
                             required
-                        >
-                            {MUSCLE_GROUPS.filter(g => g !== 'Cardio').map(group => (
-                                <option key={group} value={group}>{group}</option>
-                            ))}
-                        </select>
-                    </>
-                )}
+                        />
 
-                <label style={{ marginTop: '15px' }}>Domyślna liczba powtórzeń</label>
-                <input
-                    type="number"
-                    value={defaultReps}
-                    onChange={(e) => setDefaultReps(e.target.value)}
-                    min="1"
-                />
-
-                {addError && <p className="error-message">{addError}</p>}
-
-                <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                    <button type="submit" className="neon-button" disabled={addLoading || !newName.trim()}>
-                        {addLoading ? 'Zapisywanie...' : 'Zapisz Ćwiczenie'}
-                    </button>
-                    <button type="button" onClick={() => setIsAdding(false)} className="cancel-button">
-                        Anuluj
-                    </button>
-                </div>
-            </form>
-        </div>
-    );
-
-    const renderList = () => (
-        <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <h2>💪 Biblioteka Ćwiczeń ({exercises.length})</h2>
-                <button className="neon-button-mini" onClick={() => setIsAdding(true)}>+ Dodaj Nowe</button>
-            </div>
-
-            {loading ? (
-                <div className="loading-screen">Ładowanie ćwiczeń...</div>
-            ) : error ? (
-                <div className="error-screen">Błąd: {error}</div>
-            ) : exercises.length === 0 ? (
-                <p style={{ color: '#ccc' }}>Brak ćwiczeń w bibliotece. Dodaj pierwsze!</p>
-            ) : (
-                <div className="exercise-grid">
-                    {exercises.map(e => (
-                        <div key={e.id} className="exercise-card">
-                            <div className="card-header">
-                                <h3 style={{ margin: 0 }}>{e.name} {e.isCardio && <span className="cardio-tag">🏃</span>}</h3>
-                            </div>
-                            <p className="muscle-group" style={{ marginTop: '10px', color: '#888' }}>
-                                Grupa: <strong style={{ color: '#00FF00' }}>{e.muscleGroup}</strong>
-                            </p>
+                        <div style={{ margin: '20px 0', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <input
+                                type="checkbox"
+                                id="cardio-check"
+                                checked={newIsCardio}
+                                onChange={(e) => setNewIsCardio(e.target.checked)}
+                            />
+                            <label htmlFor="cardio-check" style={{ margin: 0 }}>To ćwiczenie Cardio</label>
                         </div>
-                    ))}
+
+                        {!newIsCardio && (
+                            <>
+                                <label>Grupa Mięśniowa</label>
+                                <select
+                                    value={newMuscleGroup}
+                                    onChange={(e) => setNewMuscleGroup(e.target.value)}
+                                >
+                                    {MUSCLE_GROUPS.filter(g => g !== 'Cardio').map(g => (
+                                        <option key={g} value={g}>{g}</option>
+                                    ))}
+                                </select>
+                            </>
+                        )}
+
+                        {addError && <p className="error-screen" style={{ padding: '10px' }}>{addError}</p>}
+
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '30px' }}>
+                            <button type="submit" className="neon-button" disabled={addLoading}>
+                                {addLoading ? 'Zapisywanie...' : 'Dodaj do biblioteki'}
+                            </button>
+                            <button type="button" onClick={() => setIsAdding(false)} className="cancel-button">Anuluj</button>
+                        </div>
+                    </form>
                 </div>
-            )}
-        </>
-    );
+            </div>
+        );
+    }
 
     return (
         <div className="list-container">
             <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
-
-            <div style={{ marginTop: '20px' }}>
-                {isAdding ? renderAddForm() : renderList()}
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ color: '#ff6831', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
+                    <Dumbbell size={28} /> Biblioteka Ćwiczeń ({exercises.length})
+                </h2>
+                <button className="neon-button-mini" onClick={() => setIsAdding(true)}>+ Dodaj</button>
             </div>
+
+            {loading ? (
+                <div className="loading-screen">Ładowanie biblioteki...</div>
+            ) : error ? (
+                <div className="error-screen">{error}</div>
+            ) : exercises.length === 0 ? (
+                <div className="empty-state">
+                    <p>Twoja biblioteka jest pusta.</p>
+                    <button className="neon-button" onClick={() => setIsAdding(true)} style={{ width: 'auto', padding: '12px 30px' }}>
+                        Dodaj pierwsze ćwiczenie
+                    </button>
+                </div>
+            ) : (
+                <div className="upcoming-list">
+                    {exercises.map((e) => (
+                        <div key={e.id} className="upcoming-card history-card">
+                            <div className="date-badge history-badge" style={{ background: e.isCardio ? '#ff6831' : '#00FF88', color: '#000' }}>
+                                {e.isCardio ? <Activity size={16} /> : <Dumbbell size={16} />}
+                            </div>
+
+                            <div className="details">
+                                <h3>{e.name}</h3>
+                                <p>Grupa: <strong style={{ color: e.isCardio ? '#ff6831' : '#00FF88' }}>{e.muscleGroup}</strong></p>
+                            </div>
+                            
+                            <div className="card-action" style={{ marginLeft: 'auto' }}>
+                                <ChevronRight size={24} color="#333" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

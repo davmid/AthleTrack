@@ -1,5 +1,6 @@
 import React from 'react';
 import { type Workout } from './api';
+import { History } from 'lucide-react';
 
 interface WorkoutsListProps {
     workouts: Workout[];
@@ -17,8 +18,10 @@ const WorkoutsList: React.FC<WorkoutsListProps> = ({ workouts, onBack }) => {
     return (
         <div className="list-container">
             <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
-            <h2 style={{ color: '#007bff' }}>📜 Historia Treningów ({pastWorkouts.length})</h2>
 
+            <h2 style={{ color: '#007bff', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <History size={28}/> Historia Treningów ({pastWorkouts.length})
+            </h2>
             {pastWorkouts.length === 0 ? (
                 <div className="empty-state">
                     <p>Nie masz jeszcze żadnych zakończonych treningów w historii.</p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { type Workout } from './api';
+import { CalendarDays } from 'lucide-react';
 
 interface UpcomingWorkoutsProps {
     workouts: Workout[];
@@ -21,8 +22,8 @@ const UpcomingWorkoutsList: React.FC<UpcomingWorkoutsProps> = ({ workouts, onBac
                 ← Powrót do Dashboardu
             </button>
             
-            <h2 style={{ color: '#00FF88' }}>
-                🗓️ Nadchodzące Treningi ({upcomingWorkouts.length})
+            <h2 style={{ color: '#00FF88', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <CalendarDays size={28} /> Nadchodzące Treningi ({upcomingWorkouts.length})
             </h2>
             
             {upcomingWorkouts.length === 0 ? (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, type PersonalRecordDto } from './api';
+import { Trophy } from 'lucide-react';
 
 interface PersonalRecordsProps {
     token: string;
@@ -41,10 +42,10 @@ const PersonalRecords: React.FC<PersonalRecordsProps> = ({ token, onBack }) => {
         <div className="list-container">
             <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
 
-            <div className="records-header">
-                <h2 className="hall-of-fame-title">🏆 Galeria Sław</h2>
-                <button className="refresh-button" onClick={fetchRecords}>Odśwież</button>
-            </div>
+            <h2 style={{ color: '#d3ff32', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Trophy size={28} /> Galeria Rekordów
+            </h2>
+            <button className="refresh-button" onClick={fetchRecords}>Odśwież</button>
 
             {loading ? (
                 <div className="loading-state">Analizowanie Twoich osiągnięć...</div>

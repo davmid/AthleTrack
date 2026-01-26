@@ -115,6 +115,18 @@ html, body, #root {
 
 .nav-top { flex-grow: 1; }
 
+.welcome-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+}
+
+.stat-icon-wrapper {
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
 .logo {
     font-size: 24px;
     font-weight: 900;
@@ -200,14 +212,10 @@ html, body, #root {
 }
 
 .logout-button {
-    width: 100%;
-    background: none;
-    border: 1px solid #333;
-    color: #ff4444;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .logout-button:hover {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
-using System.Text.Json.Serialization; // Potrzebne do JsonIgnore
+using System.Text.Json.Serialization;
 
 namespace AthleTrack.API.Models
 {
@@ -35,6 +35,6 @@ namespace AthleTrack.API.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal? BicepsCm { get; set; }
 
-        public string? Notes { get; set; }
+        public string? Notes { get; set; }//dowyjebania
     }
 }

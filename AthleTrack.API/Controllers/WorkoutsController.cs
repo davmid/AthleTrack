@@ -66,13 +66,12 @@ namespace AthleTrack.API.Controllers
         var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         if (!int.TryParse(userIdString, out int userId)) return Unauthorized();
 
-        // Pobieramy rekordy bezpośrednio z tabeli Workouts
         var records = await _context.Workouts
             .Where(w => w.UserId == userId && w.WeightKg != null)
-            .GroupBy(w => w.Name) // Grupowanie po nazwie ćwiczenia
+            .GroupBy(w => w.Name)
             .Select(group => group
-                .OrderByDescending(w => w.WeightKg) // Największy ciężar
-                .ThenByDescending(w => w.Reps)     // Potem najwięcej powtórzeń
+                .OrderByDescending(w => w.WeightKg)
+                .ThenByDescending(w => w.Reps)
                 .Select(w => new PersonalRecordDto
                 {
                     ExerciseName = w.Name,
