@@ -16,19 +16,19 @@ const UpcomingWorkoutsList: React.FC<UpcomingWorkoutsProps> = ({ workouts, onBac
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     
     return (
-        <div className="list-container" style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-            <button onClick={onBack} className="back-button" style={{ marginBottom: '20px' }}>
+        <div className="list-container">
+            <button onClick={onBack} className="back-button">
                 ← Powrót do Dashboardu
             </button>
             
-            <h2 style={{ color: '#00FF88', marginBottom: '25px' }}>
+            <h2 style={{ color: '#00FF88' }}>
                 🗓️ Nadchodzące Treningi ({upcomingWorkouts.length})
             </h2>
             
             {upcomingWorkouts.length === 0 ? (
-                <div className="empty-state" style={{ textAlign: 'center', padding: '50px' }}>
-                    <p style={{ color: '#666', marginBottom: '20px' }}>Brak zaplanowanych treningów. Czas coś dodać!</p>
-                    <button className="neon-button" onClick={onAddWorkout} style={{ width: 'auto', padding: '12px 30px' }}>
+                <div className="empty-state">
+                    <p>Brak zaplanowanych treningów. Czas coś dodać!</p>
+                    <button className="neon-button" onClick={onAddWorkout} style={{ width: 'auto', padding: '12px 30px', marginTop: '20px' }}>
                         Zaplanuj Trening
                     </button>
                 </div>
@@ -39,26 +39,26 @@ const UpcomingWorkoutsList: React.FC<UpcomingWorkoutsProps> = ({ workouts, onBac
                             <div className="date-badge history-badge">
                                 {new Date(w.date).toLocaleDateString('pl-PL', { 
                                     day: 'numeric', 
-                                    month: 'short' 
+                                    month: 'short',
+                                    year: 'numeric'
                                 })}
-                                <div style={{ fontSize: '10px', color: '#555', marginTop: '4px' }}>
-                                    {new Date(w.date).getFullYear()}
-                                </div>
                             </div>
 
                             <div className="details">
                                 <h3>{w.name}</h3>
-                                <div style={{ display: 'flex', gap: '15px' }}>
-                                    <p>⏱ <strong>{w.durationMinutes || 0} min</strong></p>
-                                    {typeof w.workoutSets === 'number' && w.workoutSets > 0 && (
-                                        <p style={{ color: '#00FF88' }}>⚡ <strong>{w.workoutSets} serii</strong></p>
-                                    )}
-                                </div>
+                                <p>Czas trwania: <strong>{w.durationMinutes || 0} min</strong></p>
+                                
+                                {typeof w.workoutSets === 'number' && w.workoutSets > 0 && (
+                                    <div className="mini-sets-list">
+                                        <small>Zaplanowano {w.workoutSets} serii</small>
+                                    </div>
+                                )}
+                                
                                 {w.notes && <p className="notes-preview">📝 {w.notes}</p>}
                             </div>
                             
-                            <div className="card-action">
-                                <span style={{ color: '#00FF88', fontSize: '20px' }}>›</span>
+                            <div className="card-action" style={{ marginLeft: 'auto' }}>
+                                <span style={{ color: '#00FF88', fontSize: '24px', fontWeight: 'bold' }}>›</span>
                             </div>
                         </div>
                     ))}

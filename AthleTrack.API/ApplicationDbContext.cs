@@ -16,8 +16,6 @@ public class ApplicationDbContext
     public DbSet<Workout> Workouts { get; set; }
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<BodyMetric> BodyMetrics { get; set; }
-    public DbSet<TrainingPlan> TrainingPlans { get; set; }
-    public DbSet<PlanItem> PlanItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

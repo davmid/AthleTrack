@@ -51,7 +51,6 @@ namespace AthleTrack.API.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-
                 return CreatedAtAction(nameof(GetWorkouts), new { id = workout.Id }, workout);
             }
             catch (Exception ex)
@@ -60,6 +59,33 @@ namespace AthleTrack.API.Controllers
                 return StatusCode(500, "Wystąpił błąd podczas zapisywania treningu w bazie danych.");
             }
         }
+
+    [HttpGet("records")]
+    public async Task<ActionResult<IEnumerable<PersonalRecordDto>>> GetPersonalRecords()
+    {
+        var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (!int.TryParse(userIdString, out int userId)) return Unauthorized();
+
+        // Pobieramy rekordy bezpośrednio z tabeli Workouts
+        var records = await _context.Workouts
+            .Where(w => w.UserId == userId && w.WeightKg != null)
+            .GroupBy(w => w.Name) // Grupowanie po nazwie ćwiczenia
+            .Select(group => group
+                .OrderByDescending(w => w.WeightKg) // Największy ciężar
+                .ThenByDescending(w => w.Reps)     // Potem najwięcej powtórzeń
+                .Select(w => new PersonalRecordDto
+                {
+                    ExerciseName = w.Name,
+                    MaxWeight = (double)w.WeightKg!,
+                    MaxReps = w.Reps ?? 0,
+                    Date = w.Date
+                })
+                .FirstOrDefault()
+            )
+            .ToListAsync();
+
+        return Ok(records);
+    }
 
         // DELETE: api/Workouts/5
         [HttpDelete("{id}")]

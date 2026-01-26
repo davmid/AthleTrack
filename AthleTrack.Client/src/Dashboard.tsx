@@ -8,11 +8,12 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import UpcomingWorkoutsList from './UpcomingWorkoutsList';
 import ExerciseManagementScreen from './ExerciseManagementScreen';
+import PersonalRecords from './PersonalRecords';
 import AddWorkoutForm from './AddWorkoutForm';
 import WorkoutsList from './WorkoutsList';
 import UserProfile from './UserProfile';
 
-type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'manageExercises' | 'profile';
+type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'manageExercises' | 'personalRecords' | 'profile';
 
 interface DashboardProps {
     token: string;
@@ -110,6 +111,7 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
             case 'viewWorkouts': return <WorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} />;
             case 'viewSchedule': return <UpcomingWorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} onAddWorkout={() => setCurrentView('addWorkout')} />;
             case 'manageExercises': return <ExerciseManagementScreen token={token} onBack={() => setCurrentView('dashboard')} />;
+            case 'personalRecords': return <PersonalRecords token={token} onBack={() => setCurrentView('dashboard')} />;
             case 'dashboard':
             default:
                 return (
@@ -140,7 +142,6 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                         </div>
 
                         <div className="visualization-section">
-                            {/* Wykres Wagi Ciała */}
                             <div className="chart-container">
                                 <h3>Trend Masy Ciała</h3>
                                 <div style={{ width: '100%', height: 280 }}>
@@ -217,6 +218,7 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                         <li onClick={() => setCurrentView('viewWorkouts')} className={currentView === 'viewWorkouts' ? 'active' : ''}>🏋️ Historia</li>
                         <li onClick={() => setCurrentView('viewSchedule')} className={currentView === 'viewSchedule' ? 'active' : ''}>🗓️ Planer</li>
                         <li onClick={() => setCurrentView('manageExercises')} className={currentView === 'manageExercises' ? 'active' : ''}>💪 Ćwiczenia</li>
+                        <li onClick={() => setCurrentView('personalRecords')} className={currentView === 'personalRecords' ? 'active' : ''}>📊 Rekordy</li>
                     </ul>
                 </div>
                 <div className="nav-bottom">

@@ -137,3 +137,12 @@ export interface NewTrainingPlanDto {
     description: string;
     planItems: NewPlanItemDto[];
 }
+
+
+export interface PersonalRecordDto {
+    exerciseName: string;
+    maxWeight: number;
+    maxReps: number;
+    date: string;
+    EstimatedOneRepMax?: number;
+}

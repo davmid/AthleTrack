@@ -177,7 +177,6 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
                         <div key={e.id} className="exercise-card">
                             <div className="card-header">
                                 <h3 style={{ margin: 0 }}>{e.name} {e.isCardio && <span className="cardio-tag">🏃</span>}</h3>
-                                {e.isCardio && <span className="cardio-tag">🏃</span>}
                             </div>
                             <p className="muscle-group" style={{ marginTop: '10px', color: '#888' }}>
                                 Grupa: <strong style={{ color: '#00FF00' }}>{e.muscleGroup}</strong>
