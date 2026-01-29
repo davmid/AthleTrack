@@ -34,7 +34,5 @@ namespace AthleTrack.API.Models
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal? BicepsCm { get; set; }
-
-        public string? Notes { get; set; }//dowyjebania
     }
 }

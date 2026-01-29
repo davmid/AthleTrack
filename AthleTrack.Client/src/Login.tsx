@@ -47,38 +47,38 @@ const LoginScreen: React.FC<LoginProps> = ({ onAuthSuccess, onNavigateRegister }
                 <div className="auth-form-container">
                     <h1 className="logo">AthleTrack<span>.</span></h1>
                     <h2 className="welcome-text">
-                        Witaj! <br/> Trenuj Ciężko. Zostań Silny.
+                        Witaj! <br /> Trenuj Ciężko. Zostań Silny.
                     </h2>
 
                     <form onSubmit={handleLogin} className="auth-form">
                         <div className="auth-input-group">
                             <label>Email</label>
-                            <input 
-                                type="email" 
-                                placeholder="Wpisz swój email" 
-                                value={email} 
-                                onChange={(e) => setEmail(e.target.value)} 
-                                required 
-                                disabled={loading} 
+                            <input
+                                type="email"
+                                placeholder="Wpisz swój email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                disabled={loading}
                             />
                         </div>
-                        
+
                         <div className="auth-input-group">
                             <label>Hasło</label>
-                            <input 
-                                type="password" 
-                                placeholder="Wpisz hasło" 
-                                value={password} 
-                                onChange={(e) => setPassword(e.target.value)} 
-                                required 
-                                disabled={loading} 
+                            <input
+                                type="password"
+                                placeholder="Wpisz hasło"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                disabled={loading}
                             />
                         </div>
-                        
+
                         <button type="submit" className="neon-button" disabled={loading}>
                             {loading ? 'Autoryzacja...' : 'Log In'}
                         </button>
-                        
+
                         {error && <p className="error-message" style={{ color: '#ff4444', marginTop: '15px', fontSize: '14px' }}>{error}</p>}
                     </form>
 
@@ -87,10 +87,10 @@ const LoginScreen: React.FC<LoginProps> = ({ onAuthSuccess, onNavigateRegister }
                     </p>
                 </div>
             </div>
-            
+
             <div className="auth-right-panel">
                 <h3 className="stats-text" style={{ fontSize: '24px', color: '#fff' }}>
-                    500K+ users. <br/> 
+                    500K+ users. <br />
                     <span style={{ color: '#00FF88' }}>50M+ workouts logged.</span>
                 </h3>
             </div>

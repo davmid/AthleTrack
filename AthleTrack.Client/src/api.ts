@@ -50,24 +50,13 @@ export interface Workout {
     durationMinutes?: number | null;
     notes?: string;
     workoutSets?: number | null;
-}
-
-export interface Workout {
-    id: number;
-    userId: number;
-    name: string;
-    date: string;
-    durationMinutes?: number | null;
-    notes?: string;
-    workoutSets?: number | null;  
     reps?: number | null;
     weightKg?: number | null;
 }
-
 export interface NewWorkoutDto {
     name: string;
     date: string;
-    durationMinutes: number | null;
+    durationMinutes?: number | null;
     notes?: string;
     workoutSets?: number | null; 
     reps?: number | null;

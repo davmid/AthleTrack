@@ -20,7 +20,7 @@ const WorkoutsList: React.FC<WorkoutsListProps> = ({ workouts, onBack }) => {
             <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
 
             <h2 style={{ color: '#007bff', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <History size={28}/> Historia Treningów ({pastWorkouts.length})
+                <History size={28} /> Historia Treningów ({pastWorkouts.length})
             </h2>
             {pastWorkouts.length === 0 ? (
                 <div className="empty-state">
@@ -42,11 +42,11 @@ const WorkoutsList: React.FC<WorkoutsListProps> = ({ workouts, onBack }) => {
                                 <p>Czas trwania: <strong>{w.durationMinutes} min</strong></p>
                                 {w.notes && <p className="notes-preview">📝 {w.notes}</p>}
 
-                            {typeof w.workoutSets === 'number' && w.workoutSets > 0 && (
-                                <div className="mini-sets-list">
-                                    <small>Wykonano {w.workoutSets} serii</small>
-                                </div>
-                            )}
+                                {typeof w.workoutSets === 'number' && w.workoutSets > 0 && (
+                                    <div className="mini-sets-list">
+                                        <small>Wykonano {w.workoutSets} serii</small>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}

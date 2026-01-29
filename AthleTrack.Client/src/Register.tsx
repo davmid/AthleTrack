@@ -34,7 +34,6 @@ const RegisterScreen: React.FC<RegisterProps> = ({ onNavigateLogin }) => {
             if (response.ok) {
                 setSuccess(true);
             } else {
-                // Backend zwraca błędy walidacji Identity
                 setError(`Rejestracja nieudana: ${data.message || data.errors || 'Sprawdź, czy email jest unikalny.'}`);
             }
         } catch (err) {
@@ -134,7 +133,7 @@ const RegisterScreen: React.FC<RegisterProps> = ({ onNavigateLogin }) => {
 
             <div className="auth-right-panel">
                 <h3 className="stats-text" style={{ fontSize: '24px', color: '#fff' }}>
-                    Define Your <br/> 
+                    Define Your <br />
                     <span style={{ color: '#00FF88' }}>Next Limit.</span>
                 </h3>
             </div>

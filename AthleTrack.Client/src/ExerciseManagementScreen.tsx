@@ -144,7 +144,7 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
     return (
         <div className="list-container">
             <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
-            
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ color: '#ff6831', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
                     <Dumbbell size={28} /> Biblioteka Ćwiczeń ({exercises.length})
@@ -175,7 +175,7 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
                                 <h3>{e.name}</h3>
                                 <p>Grupa: <strong style={{ color: e.isCardio ? '#ff6831' : '#00FF88' }}>{e.muscleGroup}</strong></p>
                             </div>
-                            
+
                             <div className="card-action" style={{ marginLeft: 'auto' }}>
                                 <ChevronRight size={24} color="#333" />
                             </div>

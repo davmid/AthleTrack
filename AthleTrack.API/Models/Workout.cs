@@ -23,10 +23,9 @@ public class Workout
     [Required]
     public DateTime Date { get; set; }
 
-    [Required]
     public int? DurationMinutes { get; set; }
 
-    public string Notes { get; set; }
+    public string? Notes { get; set; }
 
     public int? WorkoutSets { get; set; }
 

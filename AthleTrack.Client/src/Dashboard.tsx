@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { API_BASE_URL, type UserDto, type Workout, type BodyMetric } from './api';
-import { 
-    XAxis, YAxis, CartesianGrid, 
-    Tooltip, ResponsiveContainer, AreaChart, Area 
+import {
+    XAxis, YAxis, CartesianGrid,
+    Tooltip, ResponsiveContainer, AreaChart, Area
 } from 'recharts';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
@@ -86,7 +86,7 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
             ]);
 
             if (userRes.status === 401) { onLogout(); return; }
-            
+
             if (userRes.ok) setUser(await userRes.json());
             if (workoutsRes.ok) setWorkouts(await workoutsRes.json());
             if (metricsRes.ok) setBodyMetrics(await metricsRes.json());
@@ -162,8 +162,8 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                                             <AreaChart data={weightChartData}>
                                                 <defs>
                                                     <linearGradient id="colorWeight" x1="0" y1="0" x2="0" y2="1">
-                                                        <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.8}/>
-                                                        <stop offset="95%" stopColor="#00d4ff" stopOpacity={0}/>
+                                                        <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.8} />
+                                                        <stop offset="95%" stopColor="#00d4ff" stopOpacity={0} />
                                                     </linearGradient>
                                                 </defs>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#222" />
@@ -188,8 +188,8 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                                             <AreaChart data={workoutChartData}>
                                                 <defs>
                                                     <linearGradient id="colorVol" x1="0" y1="0" x2="0" y2="1">
-                                                        <stop offset="5%" stopColor="#00FF88" stopOpacity={0.8}/>
-                                                        <stop offset="95%" stopColor="#00FF88" stopOpacity={0}/>
+                                                        <stop offset="5%" stopColor="#00FF88" stopOpacity={0.8} />
+                                                        <stop offset="95%" stopColor="#00FF88" stopOpacity={0} />
                                                     </linearGradient>
                                                 </defs>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#222" />

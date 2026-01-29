@@ -28,14 +28,14 @@ const App: React.FC = () => {
         if (token && currentScreen === 'dashboard') {
             return <DashboardScreen token={token} onLogout={handleLogout} />;
         }
-        
+
         if (currentScreen === 'register') {
             return <RegisterScreen onNavigateLogin={() => setCurrentScreen('login')} />;
         }
-        
-        return <LoginScreen 
-            onAuthSuccess={handleLoginSuccess} 
-            onNavigateRegister={() => setCurrentScreen('register')} 
+
+        return <LoginScreen
+            onAuthSuccess={handleLoginSuccess}
+            onNavigateRegister={() => setCurrentScreen('register')}
         />;
     };
 

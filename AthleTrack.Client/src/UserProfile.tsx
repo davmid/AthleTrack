@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, type BodyMetric, type NewBodyMetricDto, type UserDto } from './api';
+import { User, Scale, Activity, Ruler, Save, X, Edit3 } from 'lucide-react';
 
 interface UserProfileProps {
     token: string;
@@ -11,14 +12,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ token, user }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    // Stan formularza
     const [formData, setFormData] = useState<NewBodyMetricDto>({
         weightKg: null,
         bodyFatPercent: null,
         waistCm: null,
         chestCm: null,
         bicepsCm: null,
-        notes: ''
     });
 
     useEffect(() => {
@@ -39,7 +38,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ token, user }) => {
                     waistCm: data.waistCm,
                     chestCm: data.chestCm,
                     bicepsCm: data.bicepsCm,
-                    notes: ''
                 });
             }
         } catch (error) {
@@ -65,7 +63,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ token, user }) => {
             });
 
             if (response.ok) {
-                alert("Metryki zaktualizowane!");
                 setIsEditing(false);
                 fetchLastMetric();
             }
@@ -74,58 +71,97 @@ const UserProfile: React.FC<UserProfileProps> = ({ token, user }) => {
         }
     };
 
-    if (loading) return <p>Ładowanie profilu...</p>;
+    if (loading) return <div className="dashboard-content">Ładowanie profilu...</div>;
 
     return (
-        <div className="profile-container" style={{ padding: '20px', color: 'white' }}>
-            <h1>Profil Użytkownika</h1>
-            <div className="user-info-card" style={{ background: '#1a1a1a', padding: '15px', borderRadius: '8px', marginBottom: '20px', border: '1px solid #333' }}>
-                <p><strong>Imię i Nazwisko:</strong> {user?.firstName} {user?.lastName}</p>
-                <p><strong>Email:</strong> {user?.email}</p>
+        <div className="dashboard-content">
+            <div className="dashboard-header">
+                <h2 style={{ color: '#00FF88', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>
+                    <User size={28} /> Profil Użytkownika
+                </h2>
             </div>
 
-            <h2>Moje Metryki Ciała</h2>
-            
-            {!isEditing ? (
-                <div className="metrics-display" style={{ background: '#1a1a1a', padding: '20px', borderRadius: '8px', border: '1px solid #00ff88' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                        <p>Waga: <strong>{lastMetric?.weightKg || '--'} kg</strong></p>
-                        <p>Body Fat: <strong>{lastMetric?.bodyFatPercent || '--'} %</strong></p>
-                        <p>Pas: <strong>{lastMetric?.waistCm || '--'} cm</strong></p>
-                        <p>Biceps: <strong>{lastMetric?.bicepsCm || '--'} cm</strong></p>
-                    </div>
-                    <button onClick={() => setIsEditing(true)} className="neon-button" style={{ marginTop: '15px' }}>
-                        Aktualizuj Pomiary
+            <div className="stat-card" style={{ marginBottom: '20px' }}>
+                <div className="stat-label">Zalogowany jako</div>
+                <div className="stat-value" style={{ fontSize: '24px' }}>{user?.firstName} {user?.lastName}</div>
+                <div style={{ color: '#888', marginTop: '5px' }}>{user?.email}</div>
+            </div>
+
+            <div className="dashboard-header">
+                <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '10px', color: '#fff' }}>
+                    <Activity size={20} color="#00FF88" /> Moje Metryki Ciała
+                </h3>
+                {!isEditing && (
+                    <button onClick={() => setIsEditing(true)} className="refresh-button" style={{ borderColor: '#00FF88', color: '#00FF88' }}>
+                        <Edit3 size={14} /> Aktualizuj dane
                     </button>
+                )}
+            </div>
+
+            {!isEditing ? (
+                <div className="stats-grid" style={{ marginTop: '10px' }}>
+                    <div className="stat-card" style={{ borderLeft: '4px solid #00d4ff' }}>
+                        <div className="stat-label"><Scale size={14} /> Waga</div>
+                        <div className="stat-value">{lastMetric?.weightKg || '--'} <span style={{ fontSize: '14px', color: '#666' }}>kg</span></div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeft: '4px solid #ff4444' }}>
+                        <div className="stat-label"><Activity size={14} /> Body Fat</div>
+                        <div className="stat-value">{lastMetric?.bodyFatPercent || '--'} <span style={{ fontSize: '14px', color: '#666' }}>%</span></div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeft: '4px solid #00FF88' }}>
+                        <div className="stat-label"><Ruler size={14} /> Pas</div>
+                        <div className="stat-value">{lastMetric?.waistCm || '--'} <span style={{ fontSize: '14px', color: '#666' }}>cm</span></div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeft: '4px solid #ffcc00' }}>
+                        <div className="stat-label"><Ruler size={14} /> Klatka</div>
+                        <div className="stat-value">{lastMetric?.chestCm || '--'} <span style={{ fontSize: '14px', color: '#666' }}>cm</span></div>
+                    </div>
+                    <div className="stat-card" style={{ borderLeft: '4px solid #a155ff' }}>
+                        <div className="stat-label"><Ruler size={14} /> Biceps</div>
+                        <div className="stat-value">{lastMetric?.bicepsCm || '--'} <span style={{ fontSize: '14px', color: '#666' }}>cm</span></div>
+                    </div>
                 </div>
             ) : (
-                <form onSubmit={handleSave} className="workout-form" style={{ background: '#1a1a1a', padding: '20px', borderRadius: '8px' }}>
-                    <label>Waga (kg)</label>
-                    <input type="number" step="0.1" value={formData.weightKg || ''} 
-                        onChange={e => setFormData({...formData, weightKg: parseFloat(e.target.value)})} />
-                    
-                    <label>Body Fat (%)</label>
-                    <input type="number" step="0.1" value={formData.bodyFatPercent || ''} 
-                        onChange={e => setFormData({...formData, bodyFatPercent: parseFloat(e.target.value)})} />
-                    
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                        <div style={{ flex: 1 }}>
-                            <label>Pas (cm)</label>
-                            <input type="number" step="0.1" value={formData.waistCm || ''} 
-                                onChange={e => setFormData({...formData, waistCm: parseFloat(e.target.value)})} />
+                <div className="form-container" style={{ maxWidth: '100%', marginTop: '10px' }}>
+                    <form onSubmit={handleSave} className="workout-form">
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                            <div>
+                                <label>Waga (kg)</label>
+                                <input type="number" step="0.1" value={formData.weightKg || ''}
+                                    onChange={e => setFormData({ ...formData, weightKg: parseFloat(e.target.value) })} />
+                            </div>
+                            <div>
+                                <label>Body Fat (%)</label>
+                                <input type="number" step="0.1" value={formData.bodyFatPercent || ''}
+                                    onChange={e => setFormData({ ...formData, bodyFatPercent: parseFloat(e.target.value) })} />
+                            </div>
+                            <div>
+                                <label>Pas (cm)</label>
+                                <input type="number" step="0.1" value={formData.waistCm || ''}
+                                    onChange={e => setFormData({ ...formData, waistCm: parseFloat(e.target.value) })} />
+                            </div>
+                            <div>
+                                <label>Klatka (cm)</label>
+                                <input type="number" step="0.1" value={formData.chestCm || ''}
+                                    onChange={e => setFormData({ ...formData, chestCm: parseFloat(e.target.value) })} />
+                            </div>
+                            <div>
+                                <label>Biceps (cm)</label>
+                                <input type="number" step="0.1" value={formData.bicepsCm || ''}
+                                    onChange={e => setFormData({ ...formData, bicepsCm: parseFloat(e.target.value) })} />
+                            </div>
                         </div>
-                        <div style={{ flex: 1 }}>
-                            <label>Biceps (cm)</label>
-                            <input type="number" step="0.1" value={formData.bicepsCm || ''} 
-                                onChange={e => setFormData({...formData, bicepsCm: parseFloat(e.target.value)})} />
-                        </div>
-                    </div>
 
-                    <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                        <button type="submit" className="neon-button">Zapisz zmiany</button>
-                        <button type="button" onClick={() => setIsEditing(false)} className="cancel-button">Anuluj</button>
-                    </div>
-                </form>
+                        <div style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
+                            <button type="submit" className="neon-button" style={{ flex: 2 }}>
+                                <Save size={18} /> Zapisz zmiany
+                            </button>
+                            <button type="button" onClick={() => setIsEditing(false)} className="back-button" style={{ flex: 1 }}>
+                                <X size={18} /> Anuluj
+                            </button>
+                        </div>
+                    </form>
+                </div>
             )}
         </div>
     );

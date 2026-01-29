@@ -1,6 +1,8 @@
 /* GLOBAL SETTINGS & RESET */
 
-html, body, #root {
+html,
+body,
+#root {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -13,12 +15,18 @@ html, body, #root {
 
 /* Animacje wejścia dla list */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
- /* SECTION (Login/Register) */
-
+/* SECTION (Login/Register) */
 .auth-container {
     display: flex;
     width: 100vw;
@@ -113,7 +121,9 @@ html, body, #root {
     box-sizing: border-box;
 }
 
-.nav-top { flex-grow: 1; }
+.nav-top {
+    flex-grow: 1;
+}
 
 .welcome-container {
     display: flex;
@@ -135,7 +145,9 @@ html, body, #root {
     letter-spacing: -1px;
 }
 
-.logo span { color: #00FF88; }
+.logo span {
+    color: #00FF88;
+}
 
 .nav-list {
     list-style: none;
@@ -155,12 +167,12 @@ html, body, #root {
     gap: 12px;
 }
 
-.nav-list li:hover, .nav-list li.active {
+.nav-list li:hover,
+.nav-list li.active {
     background: #1a1a1a;
     color: #00FF88;
 }
 
-/* Profil użytkownika w NAV */
 .nav-bottom {
     border-top: 1px solid #222;
     padding-top: 20px;
@@ -190,7 +202,6 @@ html, body, #root {
     font-weight: bold;
 }
 
-/* BUTTONS */
 .neon-button {
     width: 100%;
     padding: 16px;
@@ -276,8 +287,8 @@ html, body, #root {
     justify-content: center;
 }
 
-.stat-card:hover { 
-    transform: translateY(-5px); 
+.stat-card:hover {
+    transform: translateY(-5px);
     border-color: #00FF88;
 }
 
@@ -303,7 +314,8 @@ html, body, #root {
     width: 100%;
 }
 
-.chart-container, .heatmap-container {
+.chart-container,
+.heatmap-container {
     background: #161616;
     padding: 25px;
     border-radius: 20px;
@@ -312,7 +324,8 @@ html, body, #root {
     box-sizing: border-box;
 }
 
-.chart-container h3, .heatmap-container h3 {
+.chart-container h3,
+.heatmap-container h3 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 18px;
@@ -325,8 +338,13 @@ html, body, #root {
     max-height: 200px;
 }
 
-.react-calendar-heatmap .color-empty { fill: #222; }
-.react-calendar-heatmap .color-scale-active { fill: #00FF88; }
+.react-calendar-heatmap .color-empty {
+    fill: #222;
+}
+
+.react-calendar-heatmap .color-scale-active {
+    fill: #00FF88;
+}
 
 /* WORKOUT LISTS (History & Upcoming) */
 .list-container {
@@ -340,7 +358,8 @@ html, body, #root {
     margin-top: 20px;
 }
 
-.history-card, .upcoming-card {
+.history-card,
+.upcoming-card {
     background: #161616;
     border: 1px solid #222;
     border-radius: 12px;
@@ -357,7 +376,8 @@ html, body, #root {
     transform: translateX(5px);
 }
 
-.history-badge, .date-badge {
+.history-badge,
+.date-badge {
     background: #1a1a1a;
     color: #00FF88;
     padding: 10px;
@@ -413,7 +433,7 @@ html, body, #root {
     text-transform: uppercase;
 }
 
-.workout-form input, 
+.workout-form input,
 .workout-form textarea,
 .workout-form select {
     width: 100%;
@@ -551,11 +571,40 @@ html, body, #root {
     border-color: #00f2fe;
 }
 
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.workout-form .neon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.workout-form .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+}
+
+@media (max-width: 600px) {
+    .workout-form div[style*="gridTemplateColumns"] {
+        grid-template-columns: 1fr !important;
+    }
+}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
-    .dashboard-layout { flex-direction: column; }
-    
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
     .dashboard-nav {
         width: 100%;
         height: auto;
@@ -564,14 +613,26 @@ html, body, #root {
         padding: 15px 20px;
         justify-content: space-between;
     }
-    
-    .nav-list, .nav-bottom, .logo { display: none; }
-    
-    .dashboard-content { padding: 20px; }
-    
-    .auth-container { flex-direction: column; }
-    
-    .auth-left-panel { padding: 30px; }
-    
-    .auth-right-panel { display: none; }
+
+    .nav-list,
+    .nav-bottom,
+    .logo {
+        display: none;
+    }
+
+    .dashboard-content {
+        padding: 20px;
+    }
+
+    .auth-container {
+        flex-direction: column;
+    }
+
+    .auth-left-panel {
+        padding: 30px;
+    }
+
+    .auth-right-panel {
+        display: none;
+    }
 }

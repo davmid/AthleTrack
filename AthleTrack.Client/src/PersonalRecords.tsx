@@ -61,7 +61,7 @@ const PersonalRecords: React.FC<PersonalRecordsProps> = ({ token, onBack }) => {
                         <div key={i} className="record-card">
                             <div className="record-card-glow"></div>
                             <h3 className="exercise-title">{r.exerciseName}</h3>
-                            
+
                             <div className="main-stat">
                                 <span className="stat-value">{r.maxWeight}</span>
                                 <span className="stat-unit">kg</span>

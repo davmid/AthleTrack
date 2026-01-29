@@ -113,7 +113,7 @@ const AddWorkoutForm: React.FC<AddWorkoutFormProps> = ({ token, onWorkoutAdded, 
                     disabled={isLoadingExercises}
                     style={{ padding: '8px', borderRadius: '4px', backgroundColor: '#1a1a1a', color: 'white', border: '1px solid #444' }}
                 >
-                    <option value="">-- {isLoadingExercises ? 'Ładowanie...' : 'Wybierz ćwiczenie'} --</option>
+                    <option value="">- {isLoadingExercises ? 'Ładowanie...' : 'Wybierz'} -</option>
                     {availableExercises.map((ex) => (
                         <option key={ex.id} value={ex.name}>
                             {ex.name} {ex.category ? `[${ex.category}]` : ''}
