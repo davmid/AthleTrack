@@ -5,6 +5,7 @@ import { User, Scale, Activity, Ruler, Save, X, Edit3 } from 'lucide-react';
 interface UserProfileProps {
     token: string;
     user: UserDto | null;
+    onUpdate: () => Promise<void>;
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({ token, user }) => {

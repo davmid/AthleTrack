@@ -242,6 +242,10 @@ body,
     border-radius: 6px;
     cursor: pointer;
     transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .back-button:hover {
@@ -249,7 +253,6 @@ body,
     color: #fff;
 }
 
-/* DASHBOARD & STATS */
 .dashboard-content {
     flex: 1;
     padding: 40px;
@@ -415,6 +418,143 @@ body,
     font-weight: bold;
 }
 
+/* WORKOUT HISTORY SPECIFIC STYLES */
+
+.history-header {
+    color: #fff;
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.history-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 800px; 
+}
+
+.workout-history-card {
+    background: #161616;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.workout-history-card:hover {
+    border-color: #00FF88;
+    background: #1a1a1a;
+    transform: translateX(8px);
+    box-shadow: -5px 0 15px rgba(0, 255, 136, 0.1);
+}
+
+.workout-header {
+    margin-bottom: 12px;
+}
+
+.workout-date {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.workout-title {
+    margin: 4px 0;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.workout-stats-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 12px 0;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+.stat-item {
+    font-family: 'Inter', sans-serif;
+}
+
+.stat-item.strength {
+    color: #ff4444;
+}
+
+.stat-item.cardio {
+    color: #00FF88;
+}
+
+.stat-item.time {
+    color: #00f2fe; 
+}
+
+.stat-item strong {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0 4px;
+}
+
+.workout-notes {
+    font-style: italic;
+    color: #888;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    border-left: 2px solid #333;
+}
+
+.workout-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.workout-footer small {
+    color: #444;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.workout-footer .details-link {
+    color: #00FF88;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.workout-footer .details-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+    .workout-history-card {
+        padding: 15px;
+    }
+    
+    .workout-title {
+        font-size: 18px;
+    }
+    
+    .workout-stats-row {
+        gap: 12px;
+    }
+}
+
 /* FORMS & INPUTS */
 .form-container {
     background: #161616;
@@ -466,7 +606,6 @@ body,
     text-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
 }
 
-/* SIATKA KART */
 .records-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -474,7 +613,6 @@ body,
     margin-top: 20px;
 }
 
-/* KARTA REKORDU */
 .record-card {
     background: #111;
     border: 1px solid #222;

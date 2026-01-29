@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, type Exercise, type NewExerciseDto } from './api';
-import { Dumbbell, Plus, ChevronRight, Activity } from 'lucide-react';
+import { Dumbbell, Plus, ChevronRight, Activity, ChevronLeft } from 'lucide-react';
 
 interface ExerciseManagementProps {
     token: string;
@@ -143,7 +143,9 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
 
     return (
         <div className="list-container">
-            <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
+            <button onClick={onBack} className="back-button">
+                <ChevronLeft size={18} />Powrót do Dashboardu
+            </button>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ color: '#ff6831', display: 'flex', alignItems: 'center', gap: '10px', margin: 0 }}>

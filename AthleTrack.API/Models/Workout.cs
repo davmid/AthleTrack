@@ -23,14 +23,7 @@ public class Workout
     [Required]
     public DateTime Date { get; set; }
 
-    public int? DurationMinutes { get; set; }
-
     public string? Notes { get; set; }
 
-    public int? WorkoutSets { get; set; }
-
-    public int? Reps { get; set; }
-
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal? WeightKg { get; set; }
+     public List<WorkoutSet>? WorkoutSets { get; set; } = new List<WorkoutSet>();
 }

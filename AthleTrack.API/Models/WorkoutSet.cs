@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using System;
 
 public class WorkoutSet
@@ -11,11 +12,12 @@ public class WorkoutSet
 
     [ForeignKey("Workout")]
     public int? WorkoutId { get; set; }
+    [JsonIgnore]
     public Workout? Workout { get; set; }
 
     [ForeignKey("Exercise")]
     public int ExerciseId { get; set; }
-    public Exercise Exercise { get; set; }
+    public Exercise? Exercise { get; set; }
 
     [Required]
     public int SetNumber { get; set; }

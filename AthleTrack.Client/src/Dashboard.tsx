@@ -12,7 +12,11 @@ import PersonalRecords from './PersonalRecords';
 import AddWorkoutForm from './AddWorkoutForm';
 import WorkoutsList from './WorkoutsList';
 import UserProfile from './UserProfile';
-import { Activity, Calendar, Dumbbell, Flame, Hand, History, Home, LogOut, Play, Trophy, User, Weight } from 'lucide-react';
+
+import { 
+    Activity, Calendar, Dumbbell, Flame, Hand, 
+    History, Home, LogOut, Play, Trophy, User, Weight 
+} from 'lucide-react';
 
 type View = 'dashboard' | 'addWorkout' | 'viewWorkouts' | 'viewSchedule' | 'manageExercises' | 'personalRecords' | 'profile';
 
@@ -37,23 +41,27 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
 
     const latestMetric = useMemo(() => {
         if (!bodyMetrics || bodyMetrics.length === 0) return null;
-        return [...bodyMetrics].sort((a, b) => {
-            const dateA = new Date(a.measurementDate ?? 0).getTime();
-            const dateB = new Date(b.measurementDate ?? 0).getTime();
-            return dateB - dateA;
-        })[0];
+        return [...bodyMetrics].sort((a, b) => 
+            new Date(b.measurementDate ?? 0).getTime() - new Date(a.measurementDate ?? 0).getTime()
+        )[0];
     }, [bodyMetrics]);
 
     const workoutChartData = useMemo(() => {
         if (!workouts.length) return [];
         return workouts
-            .slice()
+            .filter(w => new Date(w.date) <= new Date())
             .sort((a, b) => new Date(a.date ?? 0).getTime() - new Date(b.date ?? 0).getTime())
             .slice(-10)
-            .map(w => ({
-                name: w.date ? new Date(w.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' }) : '?',
-                volume: w.weightKg || 0,
-            }));
+            .map(w => {
+                const totalVolume = w.workoutSets?.reduce((sum, set) => {
+                    return sum + ((set.weightKg || 0) * (set.reps || 0));
+                }, 0) || 0;
+
+                return {
+                    name: w.date ? new Date(w.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' }) : '?',
+                    volume: totalVolume,
+                };
+            });
     }, [workouts]);
 
     const weightChartData = useMemo(() => {
@@ -90,8 +98,6 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
             if (userRes.ok) setUser(await userRes.json());
             if (workoutsRes.ok) setWorkouts(await workoutsRes.json());
             if (metricsRes.ok) setBodyMetrics(await metricsRes.json());
-            else if (metricsRes.status === 405) console.error("Endpoint GET /BodyMetrics nie istnieje w API!");
-
         } catch (err) {
             console.error(err);
             setError("Błąd połączenia z serwerem.");
@@ -102,17 +108,83 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
 
     useEffect(() => { fetchData(); }, [token]);
 
+    const handleUpdateWorkout = async (updatedWorkout: Workout) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/Workouts/${updatedWorkout.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedWorkout)
+            });
+
+            if (response.ok) {
+                await fetchData();
+            } else {
+                alert("Nie udało się zaktualizować treningu.");
+            }
+        } catch (err) {
+            console.error("Błąd aktualizacji:", err);
+        }
+    };
+
+    const handleDeleteWorkout = async (id: number) => {
+        if (!window.confirm("Czy na pewno chcesz usunąć ten trening?")) return;
+        try {
+            const response = await fetch(`${API_BASE_URL}/Workouts/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                await fetchData();
+            } else {
+                alert("Błąd podczas usuwania treningu.");
+            }
+        } catch (err) {
+            console.error("Błąd usuwania:", err);
+        }
+    };
+
     const renderMainContent = () => {
         if (loading) return <div className="loading-screen">Ładowanie danych...</div>;
         if (error) return <div className="error-screen">{error}</div>;
 
         switch (currentView) {
-            case 'profile': return <UserProfile token={token} user={user} />;
-            case 'addWorkout': return <AddWorkoutForm token={token} onWorkoutAdded={() => { setCurrentView('dashboard'); fetchData(); }} onCancel={() => setCurrentView('dashboard')} />;
-            case 'viewWorkouts': return <WorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} />;
-            case 'viewSchedule': return <UpcomingWorkoutsList workouts={workouts} onBack={() => setCurrentView('dashboard')} onAddWorkout={() => setCurrentView('addWorkout')} />;
-            case 'manageExercises': return <ExerciseManagementScreen token={token} onBack={() => setCurrentView('dashboard')} />;
-            case 'personalRecords': return <PersonalRecords token={token} onBack={() => setCurrentView('dashboard')} />;
+            case 'profile': 
+                return <UserProfile token={token} user={user} onUpdate={fetchData} />;
+            
+            case 'addWorkout': 
+                return <AddWorkoutForm token={token} onWorkoutAdded={() => { setCurrentView('dashboard'); fetchData(); }} onCancel={() => setCurrentView('dashboard')} />;
+
+            case 'viewWorkouts':
+                return (
+                    <WorkoutsList
+                        workouts={workouts}
+                        onBack={() => setCurrentView('dashboard')}
+                        onUpdateWorkout={handleUpdateWorkout}
+                        onDeleteWorkout={handleDeleteWorkout}
+                    />
+                );
+
+            case 'viewSchedule': 
+                return (
+                    <UpcomingWorkoutsList 
+                        workouts={workouts} 
+                        onBack={() => setCurrentView('dashboard')} 
+                        onAddWorkout={() => setCurrentView('addWorkout')} 
+                        onUpdateWorkout={handleUpdateWorkout}
+                        onDeleteWorkout={handleDeleteWorkout}
+                    />
+                );
+
+            case 'manageExercises': 
+                return <ExerciseManagementScreen token={token} onBack={() => setCurrentView('dashboard')} />;
+            
+            case 'personalRecords': 
+                return <PersonalRecords token={token} onBack={() => setCurrentView('dashboard')} />;
+            
             case 'dashboard':
             default:
                 return (
@@ -166,22 +238,24 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                                                         <stop offset="95%" stopColor="#00d4ff" stopOpacity={0} />
                                                     </linearGradient>
                                                 </defs>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#222" />
-                                                <XAxis dataKey="date" stroke="#888" />
-                                                <YAxis stroke="#888" domain={['dataMin - 1', 'dataMax + 1']} />
-                                                <Tooltip contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }} />
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#222" vertical={false} />
+                                                <XAxis dataKey="date" stroke="#888" tick={{fontSize: 12}} />
+                                                <YAxis stroke="#888" domain={['dataMin - 1', 'dataMax + 1']} tick={{fontSize: 12}} />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px' }}
+                                                    formatter={(value: any) => [`${value} kg`, 'Waga']}
+                                                />
                                                 <Area type="monotone" dataKey="weight" stroke="#00d4ff" fillOpacity={1} fill="url(#colorWeight)" />
                                             </AreaChart>
                                         </ResponsiveContainer>
                                     ) : (
-                                        <div className="no-data-msg">Brak danych o wadze do wyświetlenia wykresu.</div>
+                                        <div className="no-data-msg">Brak danych o wadze.</div>
                                     )}
                                 </div>
                             </div>
 
-                            {/* Wykres Objętości */}
                             <div className="chart-container">
-                                <h3>Analityka Objętości</h3>
+                                <h3>Analityka Objętości (kg)</h3>
                                 <div style={{ width: '100%', height: 280 }}>
                                     {workoutChartData.length > 0 ? (
                                         <ResponsiveContainer width="100%" height="100%">
@@ -192,27 +266,35 @@ const DashboardScreen: React.FC<DashboardProps> = ({ token, onLogout }) => {
                                                         <stop offset="95%" stopColor="#00FF88" stopOpacity={0} />
                                                     </linearGradient>
                                                 </defs>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#222" />
-                                                <XAxis dataKey="name" stroke="#888" />
-                                                <YAxis stroke="#888" />
-                                                <Tooltip contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }} />
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#222" vertical={false} />
+                                                <XAxis dataKey="name" stroke="#888" tick={{fontSize: 12}} />
+                                                <YAxis stroke="#888" tick={{fontSize: 12}} />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#111', border: '1px solid #333', borderRadius: '8px' }}
+                                                    formatter={(value: any) => [`${value.toLocaleString()} kg`, 'Objętość']}
+                                                />
                                                 <Area type="monotone" dataKey="volume" stroke="#00FF88" fillOpacity={1} fill="url(#colorVol)" />
                                             </AreaChart>
                                         </ResponsiveContainer>
                                     ) : (
-                                        <div className="no-data-msg">Zrealizuj treningi, aby zobaczyć wykres objętości.</div>
+                                        <div className="no-data-msg">Zrealizuj treningi, aby zobaczyć wykres.</div>
                                     )}
                                 </div>
                             </div>
 
                             <div className="heatmap-container">
-                                <h3>Systematyczność</h3>
-                                <CalendarHeatmap
-                                    startDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
-                                    endDate={new Date()}
-                                    values={heatmapValues}
-                                    classForValue={(value) => !value ? 'color-empty' : 'color-scale-active'}
-                                />
+                                <h3>Systematyczność (Ostatni rok)</h3>
+                                <div className="heatmap-wrapper">
+                                    <CalendarHeatmap
+                                        startDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
+                                        endDate={new Date()}
+                                        values={heatmapValues}
+                                        classForValue={(value) => {
+                                            if (!value) return 'color-empty';
+                                            return 'color-scale-active';
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

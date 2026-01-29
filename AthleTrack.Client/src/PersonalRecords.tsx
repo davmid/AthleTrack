@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE_URL, type PersonalRecordDto } from './api';
-import { Trophy } from 'lucide-react';
+import { ChevronLeft, Trophy, Zap, Map } from 'lucide-react';
 
 interface PersonalRecordsProps {
     token: string;
@@ -22,13 +22,18 @@ const PersonalRecords: React.FC<PersonalRecordsProps> = ({ token, onBack }) => {
 
             if (response.ok) {
                 const data: PersonalRecordDto[] = await response.json();
-                data.sort((a, b) => a.exerciseName.localeCompare(b.exerciseName));
+                
+                data.sort((a, b) => {
+                    if (a.isCardio !== b.isCardio) return a.isCardio ? 1 : -1;
+                    return a.exerciseName.localeCompare(b.exerciseName);
+                });
+                
                 setRecords(data);
             } else {
-                setError(`Nie udało się pobrać rekordów.`);
+                setError(`Błąd pobierania: ${response.status}`);
             }
         } catch (err) {
-            setError('Błąd sieci.');
+            setError('Błąd połączenia z serwerem.');
         } finally {
             setLoading(false);
         }
@@ -40,45 +45,71 @@ const PersonalRecords: React.FC<PersonalRecordsProps> = ({ token, onBack }) => {
 
     return (
         <div className="list-container">
-            <button onClick={onBack} className="back-button">← Powrót do Dashboardu</button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <button onClick={onBack} className="back-button">
+                    <ChevronLeft size={18} /> Powrót
+                </button>
+                <button className="refresh-button" onClick={fetchRecords}>Odśwież</button>
+            </div>
 
-            <h2 style={{ color: '#d3ff32', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Trophy size={28} /> Galeria Rekordów
+            <h2 className="history-header" style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#d3ff32' }}>
+                <Trophy size={32} /> Galeria Rekordów
             </h2>
-            <button className="refresh-button" onClick={fetchRecords}>Odśwież</button>
 
             {loading ? (
-                <div className="loading-state">Analizowanie Twoich osiągnięć...</div>
+                <div className="loading-state">Pobieranie osiągnięć...</div>
             ) : error ? (
                 <div className="error-state">{error}</div>
-            ) : records.length === 0 ? (
-                <div className="empty-state">
-                    <p>Brak rekordów. Czas podnieść coś ciężkiego! 🏋️</p>
-                </div>
             ) : (
                 <div className="records-grid">
-                    {records.map((r, i) => (
-                        <div key={i} className="record-card">
-                            <div className="record-card-glow"></div>
-                            <h3 className="exercise-title">{r.exerciseName}</h3>
+                    {records.map((r, i) => {
+    const isCardio = r.isCardio || (r.maxDistanceKm ?? 0) > 0;
+    const accentColor = isCardio ? '#00d4ff' : '#00FF88';
 
-                            <div className="main-stat">
-                                <span className="stat-value">{r.maxWeight}</span>
-                                <span className="stat-unit">kg</span>
-                            </div>
+    return (
+        <div key={i} className="record-card" style={{ borderColor: `${accentColor}33` }}>
+            <div className="record-card-glow" style={{ background: `radial-gradient(circle, ${accentColor}11 0%, transparent 70%)` }}></div>
 
-                            <div className="record-details">
-                                <span>Seria: <strong>{r.maxReps} powt.</strong></span>
-                                <div className="one-rep-max">
-                                    1RM: <strong>{r.EstimatedOneRepMax} kg</strong>
-                                </div>
-                            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 className="exercise-title" style={{ color: accentColor }}>{r.exerciseName}</h3>
+                {isCardio ? <Map size={18} color="#00d4ff" /> : <Zap size={18} color="#00FF88" />}
+            </div>
 
-                            <div className="record-footer">
-                                <span>{new Date(r.date).toLocaleDateString()}</span>
+            <div className="main-stat">
+                {isCardio ? (
+                    <>
+                        <span className="stat-value">{r.maxDistanceKm ?? 0}</span>
+                        <span className="stat-unit">km</span>
+                    </>
+                ) : (
+                    <>
+                        <span className="stat-value">{r.maxWeight}</span>
+                        <span className="stat-unit">kg</span>
+                    </>
+                )}
+            </div>
+
+            <div className="record-details">
+                {isCardio ? (
+                    <span style={{ color: '#888' }}>Rekord dystansu</span>
+                ) : (
+                    <>
+                        <span>Seria: <strong>{r.maxReps} powt.</strong></span>
+                        {(r.estimatedOneRepMax ?? 0) > 0 && (
+                            <div className="one-rep-max" style={{ background: `${accentColor}1a`, color: accentColor }}>
+                                Est. 1RM: <strong>{r.estimatedOneRepMax} kg</strong>
                             </div>
-                        </div>
-                    ))}
+                        )}
+                    </>
+                )}
+            </div>
+
+            <div className="record-footer">
+                <span>{new Date(r.date).toLocaleDateString()}</span>
+            </div>
+        </div>
+    );
+})}
                 </div>
             )}
         </div>

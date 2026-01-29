@@ -42,36 +42,33 @@ export interface NewExerciseDto {
     defaultReps?: number;
 }
 
+export interface WorkoutSetDto {
+    id?: number;
+    exerciseId: number;
+    setNumber: number;
+    weightKg: number | null;
+    reps: number | null;
+    distanceKm?: number | null;
+    timeSeconds?: number | null;
+    exercise?: {
+        name: string;
+        category?: string;
+    };
+}
+
 export interface Workout {
     id: number;
-    userId: number;
     name: string;
     date: string;
-    durationMinutes?: number | null;
     notes?: string;
-    workoutSets?: number | null;
-    reps?: number | null;
-    weightKg?: number | null;
+    workoutSets: WorkoutSetDto[];
 }
+
 export interface NewWorkoutDto {
     name: string;
     date: string;
-    durationMinutes?: number | null;
-    notes?: string;
-    workoutSets?: number | null; 
-    reps?: number | null;
-    weightKg?: number | null;
-}
-
-export interface NewWorkoutSetDto {
-    exerciseId: number;
-    name: string;
-    setNumber: number;
-    date: string;
-    weightKg: number | null;
-    reps: number | null;
-    distanceKm: number | null;
-    timeSeconds: number | null;
+    notes?: string | null;
+    workoutSets: WorkoutSetDto[];
 }
 
 export interface BodyMetric {
@@ -94,11 +91,12 @@ export interface NewBodyMetricDto {
     notes?: string;
 }
 
-
 export interface PersonalRecordDto {
     exerciseName: string;
     maxWeight: number;
     maxReps: number;
+    maxDistanceKm?: number | null;
     date: string;
-    EstimatedOneRepMax?: number;
+    isCardio: boolean;
+    estimatedOneRepMax?: number | null;
 }

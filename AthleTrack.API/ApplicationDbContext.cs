@@ -14,6 +14,7 @@ public class ApplicationDbContext
     }
 
     public DbSet<Workout> Workouts { get; set; }
+    public DbSet<WorkoutSet> WorkoutSets { get; set; }
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<BodyMetric> BodyMetrics { get; set; }
 

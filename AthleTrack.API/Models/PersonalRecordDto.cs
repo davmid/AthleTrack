@@ -10,8 +10,14 @@ namespace AthleTrack.API.Models
 
         public int MaxReps { get; set; }
 
+        public double? MaxDistanceKm { get; set; }
+
         public DateTime Date { get; set; }
+
+        public bool IsCardio { get; set; }
         
-        public double EstimatedOneRepMax => Math.Round(MaxWeight * (1 + 0.0333 * MaxReps), 1);
+        public double? EstimatedOneRepMax => MaxWeight > 0 
+            ? Math.Round(MaxWeight * (1 + 0.0333 * MaxReps), 1) 
+            : null;
     }
 }
