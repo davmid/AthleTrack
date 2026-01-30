@@ -1,7 +1,7 @@
 # AthleTrack – Full-Stack Fitness Progress Monitoring Platform
 
-### **Temat Projektu Inżynierskiego:**
-> *Budowa i wdrożenie webowej platformy do monitorowania postępów treningowych z modułem wizualizacji danych w architekturze full-stack .NET i React.*
+## **Temat Projektu Inżynierskiego:**
+### Budowa i wdrożenie webowej platformy do monitorowania postępów treningowych z modułem wizualizacji danych w architekturze full-stack .NET i React.
 
 ---
 
@@ -70,5 +70,4 @@ System przeszedł walidację za pomocą 16 testów jednostkowych, skupiających 
 3. Uruchom aplikację: `npm run dev`.
 
 ### **Testy:**
-```bash
-dotnet test
+1. Uruchom testy: `dotnet test`

@@ -88,52 +88,161 @@ const ExerciseManagementScreen: React.FC<ExerciseManagementProps> = ({ token, on
     if (isAdding) {
         return (
             <div className="list-container">
-                <button onClick={() => setIsAdding(false)} className="back-button">← Wróć do listy</button>
-                <div className="form-container" style={{ marginTop: '20px' }}>
-                    <h2 style={{ color: '#00FF88', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Plus size={28} /> Nowe Ćwiczenie
-                    </h2>
-                    <form onSubmit={handleAddExercise}>
-                        <label>Nazwa</label>
-                        <input
-                            type="text"
-                            value={newName}
-                            onChange={(e) => setNewName(e.target.value)}
-                            placeholder="np. Wyciskanie hantli"
-                            required
-                        />
+                <button onClick={() => setIsAdding(false)} className="back-button">
+                    <ChevronLeft size={18} /> Wróć do listy
+                </button>
 
-                        <div style={{ margin: '20px 0', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div className="form-card" style={{
+                    background: '#1a1a1a',
+                    padding: '30px',
+                    borderRadius: '20px',
+                    border: '1px solid #333',
+                    marginTop: '20px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                }}>
+                    <h2 style={{
+                        color: '#00FF88',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        fontSize: '1.5rem',
+                        marginBottom: '25px'
+                    }}>
+                        <div style={{
+                            background: 'rgba(0, 255, 136, 0.1)',
+                            padding: '8px',
+                            borderRadius: '12px',
+                            display: 'flex'
+                        }}>
+                            <Plus size={24} />
+                        </div>
+                        Nowe Ćwiczenie
+                    </h2>
+
+                    <form onSubmit={handleAddExercise} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <div className="input-group">
+                            <label style={{ color: '#888', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>
+                                Nazwa ćwiczenia
+                            </label>
                             <input
-                                type="checkbox"
-                                id="cardio-check"
-                                checked={newIsCardio}
-                                onChange={(e) => setNewIsCardio(e.target.checked)}
+                                type="text"
+                                value={newName}
+                                onChange={(e) => setNewName(e.target.value)}
+                                placeholder="np. Wyciskanie hantli"
+                                required
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    background: '#222',
+                                    border: '1px solid #444',
+                                    borderRadius: '10px',
+                                    color: '#fff',
+                                    outline: 'none',
+                                    transition: 'border-color 0.3s'
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = '#00FF88'}
+                                onBlur={(e) => e.target.style.borderColor = '#444'}
                             />
-                            <label htmlFor="cardio-check" style={{ margin: 0 }}>To ćwiczenie Cardio</label>
+                        </div>
+
+                        <div
+                            onClick={() => setNewIsCardio(!newIsCardio)}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '12px 16px',
+                                background: newIsCardio ? 'rgba(255, 104, 49, 0.1)' : '#222',
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                border: `1px solid ${newIsCardio ? '#ff6831' : '#444'}`,
+                                transition: 'all 0.3s'
+                            }}
+                        >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <Activity size={20} color={newIsCardio ? '#ff6831' : '#888'} />
+                                <span style={{ color: newIsCardio ? '#fff' : '#888' }}>Trening Cardio</span>
+                            </div>
+                            <div style={{
+                                width: '40px',
+                                height: '20px',
+                                background: newIsCardio ? '#ff6831' : '#444',
+                                borderRadius: '20px',
+                                position: 'relative'
+                            }}>
+                                <div style={{
+                                    width: '16px',
+                                    height: '16px',
+                                    background: '#fff',
+                                    borderRadius: '50%',
+                                    position: 'absolute',
+                                    top: '2px',
+                                    left: newIsCardio ? '22px' : '2px',
+                                    transition: 'all 0.3s'
+                                }} />
+                            </div>
                         </div>
 
                         {!newIsCardio && (
-                            <>
-                                <label>Grupa Mięśniowa</label>
+                            <div className="input-group" style={{ animation: 'fadeIn 0.4s ease' }}>
+                                <label style={{ color: '#888', fontSize: '0.9rem', marginBottom: '8px', display: 'block' }}>
+                                    Grupa Mięśniowa
+                                </label>
                                 <select
                                     value={newMuscleGroup}
                                     onChange={(e) => setNewMuscleGroup(e.target.value)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '12px 16px',
+                                        background: '#222',
+                                        border: '1px solid #444',
+                                        borderRadius: '10px',
+                                        color: '#fff',
+                                        appearance: 'none'
+                                    }}
                                 >
                                     {MUSCLE_GROUPS.filter(g => g !== 'Cardio').map(g => (
                                         <option key={g} value={g}>{g}</option>
                                     ))}
                                 </select>
-                            </>
+                            </div>
                         )}
 
-                        {addError && <p className="error-screen" style={{ padding: '10px' }}>{addError}</p>}
+                        {addError && (
+                            <div style={{
+                                color: '#ff4444',
+                                background: 'rgba(255, 68, 68, 0.1)',
+                                padding: '10px',
+                                borderRadius: '8px',
+                                fontSize: '0.9rem'
+                            }}>
+                                {addError}
+                            </div>
+                        )}
 
-                        <div style={{ display: 'flex', gap: '10px', marginTop: '30px' }}>
-                            <button type="submit" className="neon-button" disabled={addLoading}>
+                        <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
+                            <button
+                                type="submit"
+                                className="neon-button"
+                                disabled={addLoading}
+                                style={{ flex: 2, justifyContent: 'center' }}
+                            >
                                 {addLoading ? 'Zapisywanie...' : 'Dodaj do biblioteki'}
                             </button>
-                            <button type="button" onClick={() => setIsAdding(false)} className="cancel-button">Anuluj</button>
+                            <button
+                                type="button"
+                                onClick={() => setIsAdding(false)}
+                                className="cancel-button"
+                                style={{
+                                    flex: 1,
+                                    background: 'transparent',
+                                    border: '1px solid #444',
+                                    color: '#888',
+                                    borderRadius: '10px'
+                                }}
+                            >
+                                Anuluj
+                            </button>
                         </div>
                     </form>
                 </div>
