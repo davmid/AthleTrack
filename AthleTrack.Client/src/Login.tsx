@@ -26,7 +26,6 @@ const LoginScreen: React.FC<LoginProps> = ({ onAuthSuccess, onNavigateRegister }
                 body: JSON.stringify(loginData),
             });
 
-            // Sprawdzamy czy odpowiedź ma treść przed próba parsowania JSON
             const data: AuthResponse = await response.json();
 
             if (response.ok) {
@@ -83,13 +82,13 @@ const LoginScreen: React.FC<LoginProps> = ({ onAuthSuccess, onNavigateRegister }
                     </form>
 
                     <p className="link-text" style={{ marginTop: '20px', color: '#888' }}>
-                        Nie masz konta? <span onClick={onNavigateRegister} className="neon-link" style={{ color: '#00FF88', cursor: 'pointer', fontWeight: 'bold' }}>Zarejestruj się</span>
+                        Nie masz konta? <span onClick={onNavigateRegister} className="neon-link">Zarejestruj się</span>
                     </p>
                 </div>
             </div>
 
             <div className="auth-right-panel">
-                <h3 className="stats-text" style={{ fontSize: '24px', color: '#fff' }}>
+                <h3 className="stats-text">
                     500K+ users. <br />
                     <span style={{ color: '#00FF88' }}>50M+ workouts logged.</span>
                 </h3>

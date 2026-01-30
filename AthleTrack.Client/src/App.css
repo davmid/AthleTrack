@@ -74,6 +74,12 @@ body,
     text-align: left;
 }
 
+.auth-input-group p {
+    margin: 6px 0 0 0;
+    font-size: 16px;
+    color: #666;
+}
+
 .auth-input-group label {
     display: block;
     margin-bottom: 8px;
@@ -99,6 +105,29 @@ body,
     outline: none;
     border-color: #00FF88;
     box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+.neon-link{
+    color: #00FF88;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.error-list {
+    padding-left: 20px;
+    margin: 10px 0;
+    text-align: left;
+}
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+
+.stats-text {
+    font-size: 24px;
+    color: #fff;
 }
 
 /* NAVIGATION & LAYOUT */
